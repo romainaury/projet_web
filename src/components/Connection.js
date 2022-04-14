@@ -1,115 +1,98 @@
 // import React from 'react'
+import { Form, Field } from "react-final-form";
+import axios from "axios";
 import React, { useContext, useRef, useState } from "react";
-import { useNavigate } from "react-router";
+import "./Inscription.css";
+
 export default function Connection () {
+  const handleSubmit = () => {};
+  // const onSubmit = () => {};
+  const validate = () => {};
+  const InterestPicker = () => {};
+  const [connecter, setConnecter] = useState(false);
+  const [validation, setValidation] = useState("");
 
-    const navigate = useNavigate();
+  const Log = async ({ email,  password }) => {
+    const res = await axios.put("http://localhost:3001/login", {
+      email: email,
+      password: password,
+    });
+    return res;
+  };
 
-    const [validation, setValidation] = useState("");
-  
-    const inputs = useRef([]);
-    const addInputs = (el) => {
-      if (el && !inputs.current.includes(el)) {
-        inputs.current.push(el);
-      }
-    };
-    const formRef = useRef();
+  const onSubmit = (values) => {
+    console.log("prout", values);
+    let res;
+    res = Log(values);
+    console.log(res, "res");
+    if (res == 500) {
+      setValidation("erreur");
+    } else {
+      setConnecter(true);
+    }
+  };
 
-    const handleForm = async (e) => {
-        e.preventDefault();
-        console.log(inputs);
-        //on tentr de signIN si on y arrive on ferme la modal 
-        try {
-          // Not using cred, TODO: clean code
-          // const cred = await signIn(
-          //   inputs.current[0].value,
-          //   inputs.current[1].value
-          // );
-        //   await signIn(
-        //     inputs.current[0].value,
-        //     inputs.current[1].value
-        //   );
-          console.log(inputs.current[0].value,
-              inputs.current[1].value)
-          setValidation("");
-       
-        //   toggleModals("close");
-          navigate("/private/private-home");
-          // si on y arrive pas on affiche un message à l'utilisateur qu'il a du se tromper 
-        } catch {
-          setValidation("Wopsy, email and/or password incorrect")
-        }
-      };
-      //ferme la modal 
-      const closeModal = () => {
-        setValidation("");
-        // toggleModals("close");
-      };
+  function verif(values) {
+    console.log("prout2", values);
+    if (values.password != values.password2) {
+      setValidation("mdp différent");
+    } else {
+      onSubmit(values);
+    }
+  }
 
-    const MyForm = () => (
-        <>
-          {/* <div className="position-fixed top-0 vw-100 vh-100"> */}
-          {/* <div
-            //  onClick={closeModal}
-            className="w-100 h-100 bg-dark bg-opacity-75"
-          ></div> */}
-          {/* <div
-            className="position-absolute top-50 start-50 translate-middle"
-            style={{ minWidth: "400px" }}
-          > */}
-            <div className="modal-dialog">
-              {/* <div className="modal-content"> */}
-                <div className="modal-header">
-                  <h5 className="modal-title">Sign In</h5>
-                  {/* <button /*onClick={closeModal}  className="btn-close"></button> */}
-                </div>
-    
-                <div className="modal-body">
-                  <form
-                     ref={formRef}
-                     onSubmit={handleForm}
-                    className="sign-up-form"
-                  >
-                    <div className="mb-3">
-                      <label htmlFor="signInEmail" className="form-label">
-                        Email adress
-                      </label>
-                      <input
-                         ref={addInputs}
-                        name="email"
-                        required
-                        type="email"
-                        className="form-control"
-                        id="signInEmail"
-                      />
-                    </div>
-    
-                    <div className="mb-3">
-                      <label htmlFor="signInPwd" className="form-label">
-                        Password
-                      </label>
-                      <input
-                         ref={addInputs}
-                        name="pwd"
-                        required
-                        type="password"
-                        className="form-control"
-                        id="signInPwd"
-                      />
-                      <p className="text-danger mt-1">{validation}</p>
-                    </div>
-    
-                    <button className="btn btn-primary">Submit</button>
-                  </form>
-                </div>
+  const MyForm = () => (
+    <Form
+      onSubmit={verif}
+      validate={validate}
+      render={({ handleSubmit }) => (
+        <form onSubmit={handleSubmit}>
+          <Field
+            name="email"
+            render={({ input, meta }) => (
+              <div>
+                <label>email</label>
+                <textarea {...input} />
+                {meta.touched && meta.error && <span>{meta.error}</span>}
               </div>
-            {/* </div> */}
-          {/* </div> */}
-          {/* </div> */}
-        </>
-      );
+            )}
+          />
 
-    return (<><h1>Connection </h1>
-    <MyForm></MyForm>
-    </>)
+        
+
+          {/* <h2>Render Function as Children</h2> */}
+          <Field name="password">
+            {({ input, meta }) => (
+              <div>
+                <label>password</label>
+                <input type="password" {...input} placeholder="password" />
+                {meta.touched && meta.error && <span>{meta.error}</span>}
+              </div>
+            )}
+          </Field>
+
+          <div>
+            <p className="inscription-validation">{validation}</p>
+          </div>
+
+          <button type="submit">Submit</button>
+        </form>
+      )}
+    />
+  );
+
+  return (
+    <>
+      {connecter ? (
+        <>
+          <h1>Vous vous êtes inscrits</h1>
+        </>
+      ) : (
+        <>
+          <h1>Connection  </h1>
+          <MyForm></MyForm>
+        </>
+      )}
+    </>
+  );
 }
