@@ -13,13 +13,14 @@ export default function Connection () {
   const [validation, setValidation] = useState("");
 
   const Log = async ({ email,  password }) => {
+    console.log("reçu avant envoie", email,password )
     const res = await axios.post("http://localhost:3001/login", {
       email: email,
       password: password,
     });
     return res;
   };
-
+  
   const onSubmit = (values) => {
     console.log("prout", values);
     let res;
@@ -32,11 +33,15 @@ export default function Connection () {
     }
   };
 
-  
+  function verif(values) {
+   
+      onSubmit(values);
+    
+  }
 
   const MyForm = () => (
     <Form
-      onSubmit={onSubmit}
+      onSubmit={verif}
       validate={validate}
       render={({ handleSubmit }) => (
         <form onSubmit={handleSubmit}>
