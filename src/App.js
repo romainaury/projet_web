@@ -4,10 +4,10 @@ import './App.css';
 
 import { Route, Routes } from "react-router-dom";
 
-import Navbar from "./components/navbar/Navbar";
-import Connection from "./components/authentification/Connection";
-import Inscription from "./components/authentification/Inscription";
-import Home from "./components/home/Home";
+import Navbar from "./components/navbar/NavbarComponent";
+import Connection from "./components/authentification/ConnectionComponent";
+import Inscription from "./components/authentification/InscriptionComponent";
+import Home from "./components/home/HomeComponent";
 
 function App() {
   return (
