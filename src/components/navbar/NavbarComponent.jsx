@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 // import { auth } from "../firebase-config";
 
 //Composants navbar permettant la navigation dans le site weeb 
-export default function Navbar() {
+export default function NavbarComponent() {
   //on récupère les informtions général pour savoir si l'utilisateur ets connecter par exemple 
   // const { toggleModals, currentUser } = useContext(UserContext);
   // const navigate = useNavigate();

@@ -1,8 +1,10 @@
+// import React from 'react'
 import { Form, Field } from "react-final-form";
 import axios from "axios";
 import React, { useContext, useRef, useState } from "react";
-import "./Inscription.css";
-export default function Inscription() {
+import "./authentification-style.css";
+
+export default function Connection () {
   const handleSubmit = () => {};
   // const onSubmit = () => {};
   const validate = () => {};
@@ -10,19 +12,19 @@ export default function Inscription() {
   const [connecter, setConnecter] = useState(false);
   const [validation, setValidation] = useState("");
 
-  const createuser = async ({ email, name, password }) => {
-    const res = await axios.put("http://localhost:3001/user", {
+  const Log = async ({ email,  password }) => {
+    console.log("reçu avant envoie", email,password )
+    const res = await axios.post("http://localhost:3001/login", {
       email: email,
-      name: name,
       password: password,
     });
     return res;
   };
-
+  
   const onSubmit = (values) => {
     console.log("prout", values);
     let res;
-    res = createuser(values);
+    res = Log(values);
     console.log(res, "res");
     if (res == 500) {
       setValidation("erreur");
@@ -32,12 +34,9 @@ export default function Inscription() {
   };
 
   function verif(values) {
-    console.log("prout2", values);
-    if (values.password != values.password2) {
-      setValidation("mdp différent");
-    } else {
+   
       onSubmit(values);
-    }
+    
   }
 
   const MyForm = () => (
@@ -51,23 +50,13 @@ export default function Inscription() {
             render={({ input, meta }) => (
               <div>
                 <label>email</label>
-                <input {...input} />
+                <input  {...input} />
                 {meta.touched && meta.error && <span>{meta.error}</span>}
               </div>
             )}
           />
 
-          {/* <h2>Render Function</h2> */}
-          <Field
-            name="name"
-            render={({ input, meta }) => (
-              <div>
-                <label>name</label>
-                <input {...input} />
-                {meta.touched && meta.error && <span>{meta.error}</span>}
-              </div>
-            )}
-          />
+        
 
           {/* <h2>Render Function as Children</h2> */}
           <Field name="password">
@@ -80,15 +69,6 @@ export default function Inscription() {
             )}
           </Field>
 
-          <Field name="password2">
-            {({ input, meta }) => (
-              <div>
-                <label>confirm password</label>
-                <input type="password" {...input} placeholder="password2" />
-                {meta.touched && meta.error && <span>{meta.error}</span>}
-              </div>
-            )}
-          </Field>
           <div>
             <p className="inscription-validation">{validation}</p>
           </div>
@@ -103,11 +83,11 @@ export default function Inscription() {
     <>
       {connecter ? (
         <>
-          <h1>Vous vous êtes inscrits</h1>
+          <h1>Vous vous êtes Connecter</h1>
         </>
       ) : (
         <>
-          <h1>Inscription </h1>
+          <h1>Connection  </h1>
           <MyForm></MyForm>
         </>
       )}
