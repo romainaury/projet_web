@@ -2,7 +2,7 @@ const initialState = {
   user: {
     id: "",
     email: "",
-    username: "",
+    name: "",
     token: "",
   },
   deck: {},
@@ -11,7 +11,7 @@ const initialState = {
 const mainReducer = (state = initialState, { type, payload }) => {
   switch (type) {
     case "SET_USER":
-      return { ...state, ...payload };
+      return { ...state, user: { ...payload } };
 
     case "LOG_OUT":
       return { ...initialState };
