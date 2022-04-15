@@ -51,7 +51,7 @@ export default function Inscription() {
             render={({ input, meta }) => (
               <div>
                 <label>email</label>
-                <textarea {...input} />
+                <input {...input} />
                 {meta.touched && meta.error && <span>{meta.error}</span>}
               </div>
             )}
@@ -63,7 +63,7 @@ export default function Inscription() {
             render={({ input, meta }) => (
               <div>
                 <label>name</label>
-                <textarea {...input} />
+                <input {...input} />
                 {meta.touched && meta.error && <span>{meta.error}</span>}
               </div>
             )}

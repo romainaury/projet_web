@@ -50,7 +50,7 @@ export default function Connection () {
             render={({ input, meta }) => (
               <div>
                 <label>email</label>
-                <textarea {...input} />
+                <input  {...input} />
                 {meta.touched && meta.error && <span>{meta.error}</span>}
               </div>
             )}

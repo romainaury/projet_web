@@ -6,10 +6,10 @@ import './App.css';
 
 import { Route, Routes } from "react-router-dom";
 
-import Navbar from "./components/Navbar";
-import Connection from "./components/Connection";
-import Inscription from "./components/Inscription";
-import Home from "./components/Home";
+import Navbar from "./components/navbar/Navbar";
+import Connection from "./components/authentification/Connection";
+import Inscription from "./components/authentification/Inscription";
+import Home from "./components/home/Home";
 
 function App() {
   return (
