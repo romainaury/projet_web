@@ -5,9 +5,9 @@ import './App.css';
 import { Route, Routes } from "react-router-dom";
 
 import Navbar from "./components/navbar/NavbarComponent";
-import Connection from "./components/authentification/ConnectionComponent";
-import Inscription from "./components/authentification/InscriptionComponent";
 import Home from "./components/home/HomeComponent";
+import SignIn from './components/authentification/SignInComponent';
+import LogIn from './components/authentification/LogInComponent';
 
 function App() {
   return (
@@ -18,8 +18,8 @@ function App() {
       <main id="App-main">
         <Routes>
           <Route element={<Home/>} path="/" />
-          <Route path="/connection" element={<Connection />} />
-          <Route path="/inscription" element={<Inscription />} />
+          <Route path="/connection" element={LogIn} />
+          <Route path="/inscription" element={<SignIn />} />
         </Routes>
       </main>
     </div>
