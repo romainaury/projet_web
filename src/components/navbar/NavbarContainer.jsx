@@ -4,16 +4,11 @@ import NavbarComponent from "./NavbarComponent";
 
 const mapStateToProps = (state) => ({
   user: state.user,
+  isLoggedIn: () => state.main.user?.id != undefined,
 });
 
 const mapDispatchToProps = {
   setUser: setUserAction,
-  isLoggedIn: () => state.main.user?.id != null
-//   isLoggedIn2: () => {
-    
-//     state.user?.id != null
-//   }
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(NavbarComponent);
-
