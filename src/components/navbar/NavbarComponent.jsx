@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 // import { auth } from "../firebase-config";
 
 //Composants navbar permettant la navigation dans le site weeb 
-export default function NavbarComponent() {
+export default function NavbarComponent({isLoggedIn}) {
   //on récupère les informtions général pour savoir si l'utilisateur ets connecter par exemple 
   // const { toggleModals, currentUser } = useContext(UserContext);
   // const navigate = useNavigate();
@@ -23,6 +23,7 @@ export default function NavbarComponent() {
   //   }
   // };
   // console.log("currentUser", currentUser);
+  console.log("il est loggé : ",isLoggedIn)
   return (
     <nav className="navbar navbar-light bg-light px-4">
       <Link to="/" className="navbar-brand">

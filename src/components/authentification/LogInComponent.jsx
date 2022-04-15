@@ -16,7 +16,7 @@ const [validation, setValidation] = useState("");
   const Log2  = async ({ pseudo,  password }) => {
     console.log("reçu avant envoie", pseudo,password )
     const params = {
-      pseudo: pseudo,
+    
       email: pseudo+ "@l3.fr" ,
       password: password,
     };
@@ -30,11 +30,7 @@ const [validation, setValidation] = useState("");
   fetch("http://localhost:3001/login", requestOptions)
   .then((response) => response.json())
   .then((response) => {
-    setUser({
-      id: response.id,
-      name: pseudo,
-      email: pseudo + "@l3.fr",
-    });
+    setUser(response);
     navigate("/");
   })
   .catch(() => {
