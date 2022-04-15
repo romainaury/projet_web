@@ -18,7 +18,7 @@ function App() {
       <main id="App-main">
         <Routes>
           <Route element={<Home/>} path="/" />
-          <Route path="/connection" element={LogIn} />
+          <Route path="/connection" element={<LogIn>  </LogIn>} />
           <Route path="/inscription" element={<SignIn />} />
         </Routes>
       </main>
