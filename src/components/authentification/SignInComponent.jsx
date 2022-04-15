@@ -2,10 +2,8 @@ import { useEffect } from "react";
 import { Field, Form } from "react-final-form";
 import { useNavigate } from "react-router";
 
-const SignInComponent = ({ setUser }) => {
+const SignInComponent = ({ user, setUser }) => {
   const navigate = useNavigate();
-
-  const user = null;
 
   useEffect(() => {
     if (user?.id) {
@@ -62,6 +60,7 @@ const SignInComponent = ({ setUser }) => {
       render={({ handleSubmit, errors }) => (
         <form className="container" onSubmit={handleSubmit}>
           <h1>Inscription</h1>
+          {console.log(user)}
           <div>
             <label className="form-label">Pseudo</label>
             <Field
