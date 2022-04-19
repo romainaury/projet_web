@@ -3,11 +3,9 @@ import { setUserAction } from "../../actions/mainActions";
 import SignInComponent from "./SignInComponent";
 
 const mapStateToProps = (state) => ({
-  user: state.user,
+  user: state.main.user,
 });
 
-const mapDispatchToProps = {
-  setUser: setUserAction,
-};
+const mapDispatchToProps = {};
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignInComponent);

@@ -2,12 +2,12 @@ import { useEffect } from "react";
 import { Field, Form } from "react-final-form";
 import { useNavigate } from "react-router";
 
-const SignInComponent = ({ user, setUser }) => {
+const SignInComponent = ({ user }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
     if (user?.id) {
-      navigate("/");
+      navigate("/login");
     }
   }, [user, navigate]);
 
@@ -27,15 +27,11 @@ const SignInComponent = ({ user, setUser }) => {
     fetch("http://localhost:3001/user", requestOptions)
       .then((response) => response.json())
       .then((response) => {
-        setUser({
-          id: response.id,
-          name: values.username,
-          email: values.username + "@l3.fr",
-        });
-        navigate("/");
+        if (response.status === 204) navigate("/connexion");
+        else if (response.status === 500) alert(response);
       })
-      .catch(() => {
-        alert("Utilisateur déjà créé");
+      .catch((err) => {
+        alert(err);
       });
   };
 
@@ -60,7 +56,6 @@ const SignInComponent = ({ user, setUser }) => {
       render={({ handleSubmit, errors }) => (
         <form className="container" onSubmit={handleSubmit}>
           <h1>Inscription</h1>
-          {console.log(user)}
           <div>
             <label className="form-label">Pseudo</label>
             <Field
