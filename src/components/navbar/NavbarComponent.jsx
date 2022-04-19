@@ -15,25 +15,7 @@ export default function NavbarComponent({ isLoggedIn, user }) {
   console.log("token  is : ", token);
 
   function participate(e) {
-    // const headers = new Headers();
-    // headers.append("WWW-Authenticate", token)
-    // headers.append("Content-Type", "application/json")
-
-    // const requestOptions = {
-    //   method: "GET",
-    //   headers,
-
-    // };
-    // console.log("headers  is 2 : ", requestOptions);
-    // fetch("http://localhost:3001/matchmaking/participate", requestOptions)
-    //   .then((response) => response.json())
-    //   .then((response) => {
-    //     console.log(response);
-    //   })
-    //   .catch(() => {
-    //     alert("Utilisateur pas réussis participate ");
-    //   });
-    console.log("lalalalaaaaaa");
+  
     AskParticipate(token)
       .then((response) => {
         if (response.status === 200) console.log("ok");

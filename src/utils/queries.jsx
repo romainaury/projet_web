@@ -21,10 +21,12 @@ export const logOutQuery = async ({ token }) => {
 }
 
 export const getAllUsersQuery = async ({ token }) => {
-
   const requestOptions = {
     method: "GET",
-    headers: { "Content-Type": "application/json", "WWW-Authenticate": token },
+    headers: {
+      "Content-Type": "application/json",
+      "WWW-Authenticate": token,
+    },
   };
 
   return fetch("http://localhost:3001/matchmaking/getAll", requestOptions);
@@ -33,7 +35,7 @@ export const getAllUsersQuery = async ({ token }) => {
 
 
 export const AskParticipate = async (token) => {
-  console.log("on y arrive")
+ // console.log("on y arrive")
   
   
   const headers = new Headers();
@@ -46,7 +48,7 @@ export const AskParticipate = async (token) => {
     headers,
     
   };
-  console.log("headers  is 2 : ", requestOptions);
+ // console.log("headers  is 2 : ", requestOptions);
   return fetch("http://localhost:3001/matchmaking/participate", requestOptions);
 };
 
@@ -61,7 +63,7 @@ Service est le suivant :
 /matchmaking/request
  
  
- "matchmakingId" : l’identifiant du matchmaking du joueur à qui on souhaite envoyer la requête
+ "matchmakingId" : l’identifiant du matchmaking du joueur à qui on souhaite envoyer la requête
 */
 export const askMatch = async ({ matchmakingId, token }) => {
 
@@ -90,7 +92,6 @@ Cet identifiant doit nécessairement être associé à un joueur qui vous a envo
 Dans ce cas un match est créé, et les informations concernant ce match sont retournées :*/
 export const acceptRequestMatch = async ({ matchmakingId, token }) => {
 
-
   const params = {
     matchmakingId: matchmakingId,
   };
@@ -105,4 +106,66 @@ export const acceptRequestMatch = async ({ matchmakingId, token }) => {
     "http://localhost:3001/matchmaking/acceptRequest",
     requestOptions
   );
+};
+
+
+
+
+
+/*------------------------------------------------Match ------------------------------------------------------------*/
+
+
+export const finDuMatch= async () => {
+  const requestOptions = {
+    method: "GET",
+    headers: { "Content-Type": "application/json" },
+   
+  };
+
+  return fetch("http://localhost:3001/match/finisMatch", requestOptions);
+};
+
+
+
+export const  finDuTour= async () => {
+  const requestOptions = {
+    method: "GET",
+    headers: { "Content-Type": "application/json" },
+   
+  };
+
+  return fetch("http://localhost:3001/match/endTurn", requestOptions);
+};
+
+export const   attaquerDirectementLesPointsDeVieDelAdversaire= async ({ card }) => {
+  const requestOptions = {
+    method: "GET",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ card }),
+   
+  };
+
+  return fetch("http://localhost:3001/match/attackPlayer", requestOptions);
+};
+
+export const   faireAttaquerCnChampion= async ({ card, ennemyCard }) => {
+  const requestOptions = {
+    method: "GET",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ card , ennemyCard}),
+   
+  };
+
+  return fetch("http://localhost:3001/match/attack", requestOptions);
+};
+
+export const   jouerUneCarteChampion= async ({ card, playCard }) => {
+  const requestOptions = {
+    method: "GET",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ card , playCard}),
+   
+  };
+
+  return fetch("http://localhost:3001/match/attack", requestOptions);
 };
