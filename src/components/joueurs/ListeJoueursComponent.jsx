@@ -20,7 +20,9 @@ const ListeJoueursComponent = ({ user, className = "" }) => {
   }, [user]);
 
   return (
+    
     <div className={"container " + className}>
+      <h1>hey</h1>
       <span>{user.name}</span>
       {users.map((u) => {
         console.log(u);
