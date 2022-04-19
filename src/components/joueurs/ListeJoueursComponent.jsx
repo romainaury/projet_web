@@ -7,7 +7,8 @@ const ListeJoueursComponent = ({ user, className = "" }) => {
 
   useEffect(() => {
     if (user.id !== "") {
-      getAllUsersQuery(user.token)
+      console.log(user);
+      getAllUsersQuery(user)
         .then((response) => {
           return response.json();
         })
@@ -20,7 +21,6 @@ const ListeJoueursComponent = ({ user, className = "" }) => {
   }, [user]);
 
   return (
-    
     <div className={"container " + className}>
       <h1>hey</h1>
       <span>{user.name}</span>
@@ -34,9 +34,10 @@ const ListeJoueursComponent = ({ user, className = "" }) => {
 
 const CarteJoueur = ({ email, name, matchmakingId }) => {
   return (
-    <div className="col-12 px-1 py-1 bor">
-      <p className="mb-1">Nom : {name}</p>
-      <p>E-Mail : {email}</p>
+    <div className="col-12 px-1 py-1 bg-light rounded-3">
+      <p className="mb-1">
+        {name} ({email})
+      </p>
     </div>
   );
 };

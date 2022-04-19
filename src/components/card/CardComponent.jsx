@@ -13,23 +13,26 @@ export const CardComponent = ({ champion, onClick, isSplited }) => {
       }
       onClick={() => onClick(champion)}
     >
-      <div className="text-white bg-dark rounded overflow-hidden cursor-pointer">
+      <div className="text-white border border-3 border-dark overflow-hidden cursor-pointer position-relative">
+        <img
+          className="position-absolute h-100 w-100 bg-img"
+          src={`https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${key}_0.jpg`}
+          alt={name}
+        />
+        <p className="mx-2 my-0 fw-bold">{name}</p>
+        <p className="mx-2 my-0 py-0 text-end">Etoiles</p>
         <div className="row w-xxl-100">
           <img
             className="col-12 col-xxl-7"
             src={`https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${key}_0.jpg`}
             alt={name}
           />
+          <p className="d-block fw-bold text-center">{title}</p>
+
           <div className="ms-2 me-0 mx-xxl-auto my-xxl-auto col-12 col-xxl-5">
-            <p className="fw-bold">Attaque : {info.attack}</p>
-            <p className="mb-xxl-0 fw-bold">Armure : {info.defense}</p>
+            <p className="fw-bold my-1">Attaque : {info.attack}</p>
+            <p className="fw-bold">Armure : {info.defense}</p>
           </div>
-        </div>
-        <div className="">
-          <p className="my-auto mx-auto w-content text-center">
-            <span className="d-block fw-bold">{name}</span>
-            <span className="d-block fw-normal">{title}</span>
-          </p>
         </div>
       </div>
     </div>
