@@ -2,7 +2,7 @@ const initialState = {
   user: {
     id: "",
     email: "",
-    username: "",
+    name: "",
     token: undefined,
   },
   deck: {},

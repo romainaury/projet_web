@@ -1,11 +1,11 @@
-export const setUserAction = (userObj) => {
+export const setUserAction = (payload) => {
     return {
         type: "SET_USER",
         payload: {
-            id: userObj.id,
-            email: userObj.email,
-            username: userObj.name,
-            token: userObj.token,
+            id: payload.id,
+            email: payload.email,
+            name: payload.name,
+            token: payload.token,
         }
     }
 }
