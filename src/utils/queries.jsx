@@ -20,3 +20,58 @@ export const GetAllUsersQuery = async () => {
 
   return fetch("http://localhost:3001/matchmaking/getAll", requestOptions);
 };
+
+/* Envoyer une requête
+Il est possible d’envoyer une demande pour jouer avec un joueur présent dans la liste. Pour
+cela il faut l’identifiant du matchmaking du joueur à qui on veut envoyer la requête. Ce Web
+Service est le suivant :
+/matchmaking/request
+
+
+ "matchmakingId" : l’identifiant du matchmaking du joueur à qui on souhaite envoyer la requête
+*/
+export const AskMatch = async (matchmakingId) => {
+  const token = useSelector((state) => state.main.user.token);
+
+
+  const params = {
+    matchmakingId : matchmakingId,
+    };
+
+
+  const requestOptions = {
+    method: "GET",
+    headers: { "Content-Type": "application/json", "WWW-Authenticate": token },
+    body: JSON.stringify(params),
+  };
+
+  return fetch("http://localhost:3001/matchmaking/request", requestOptions);
+};
+
+/*Accepter une requête
+Lorsque le joueur a reçu une requête pour jouer, il peut l’accepter. Pour cela il faut utiliser le
+Web Service suivant :
+/matchmaking/acceptRequest
+
+
+Ce Web Service nécessite 1 paramètre :
+— "matchmakingId" : l’identifiant du matchmaking du joueur ayant envoyé la requête
+Cet identifiant doit nécessairement être associé à un joueur qui vous a envoyé une requête.
+Dans ce cas un match est créé, et les informations concernant ce match sont retournées :*/
+export const AcceptRequestMatch = async (matchmakingId) => {
+  const token = useSelector((state) => state.main.user.token);
+
+
+  const params = {
+    matchmakingId : matchmakingId,
+    };
+
+
+  const requestOptions = {
+    method: "GET",
+    headers: { "Content-Type": "application/json", "WWW-Authenticate": token },
+    body: JSON.stringify(params),
+  };
+
+  return fetch("http://localhost:3001/matchmaking/acceptRequest", requestOptions);
+};
