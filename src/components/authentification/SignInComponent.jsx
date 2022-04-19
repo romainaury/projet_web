@@ -25,13 +25,12 @@ const SignInComponent = ({ user }) => {
     };
 
     fetch("http://localhost:3001/user", requestOptions)
-      .then((response) => response.json())
       .then((response) => {
-        if (response.status === 204) navigate("/connexion");
-        else if (response.status === 500) alert(response);
+        if (response.status === 200) navigate("/connexion");
+        return response.json();
       })
-      .catch((err) => {
-        alert(err);
+      .catch(() => {
+        alert("Utilisateur déjà créé");
       });
   };
 
