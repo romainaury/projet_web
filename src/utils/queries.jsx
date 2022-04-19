@@ -1,6 +1,4 @@
-import { useSelector } from "react-redux";
-
-export const SignInQuery = async ({ name, email, password }) => {
+export const signInQuery = async ({ name, email, password }) => {
   const requestOptions = {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
@@ -10,20 +8,19 @@ export const SignInQuery = async ({ name, email, password }) => {
   return fetch("http://localhost:3001/user", requestOptions);
 };
 
-export const LogOutQuery = async ({ user }) => {
+export const logOutQuery = async ({ token }) => {
   const requestOptions = {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      "WWW-Authenticate": user.token,
+      "WWW-Authenticate": token,
     },
   };
 
   return fetch("http://localhost:3001/logout", requestOptions);
 }
 
-export const GetAllUsersQuery = async () => {
-  const token = useSelector((state) => state.main.user.token);
+export const getAllUsersQuery = async ({ token }) => {
 
   const requestOptions = {
     method: "GET",
@@ -42,8 +39,7 @@ Service est le suivant :
  
  "matchmakingId" : l’identifiant du matchmaking du joueur à qui on souhaite envoyer la requête
 */
-export const AskMatch = async (matchmakingId) => {
-  const token = useSelector((state) => state.main.user.token);
+export const askMatch = async ({ matchmakingId, token }) => {
 
 
   const params = {
@@ -70,8 +66,7 @@ Ce Web Service nécessite 1 paramètre :
 — "matchmakingId" : l’identifiant du matchmaking du joueur ayant envoyé la requête
 Cet identifiant doit nécessairement être associé à un joueur qui vous a envoyé une requête.
 Dans ce cas un match est créé, et les informations concernant ce match sont retournées :*/
-export const AcceptRequestMatch = async (matchmakingId) => {
-  const token = useSelector((state) => state.main.user.token);
+export const acceptRequestMatch = async ({ matchmakingId, token }) => {
 
 
   const params = {
