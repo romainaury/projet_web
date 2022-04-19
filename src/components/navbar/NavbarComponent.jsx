@@ -1,12 +1,8 @@
 // si vous voulez vraiement comprendre tous le code de cet page je vous invite à regarder cet vidéo https://www.youtube.com/watch?v=boZJtNzRCDQ
 import React, { useContext } from "react";
-// import { UserContext } from "../context/userContext";
 import { Link } from "react-router-dom";
-// import { signOut } from "firebase/auth";
-import { useNavigate } from "react-router-dom";
-// import { auth } from "../firebase-config";
+// import { useNavigate } from "react-router-dom";
 
-//Composants navbar permettant la navigation dans le site weeb
 export default function NavbarComponent({ isLoggedIn }) {
   //on récupère les informtions général pour savoir si l'utilisateur ets connecter par exemple
   // const { toggleModals, currentUser } = useContext(UserContext);
@@ -23,8 +19,8 @@ export default function NavbarComponent({ isLoggedIn }) {
   //   }
   // };
   // console.log("currentUser", currentUser);
-  let log = isLoggedIn();
-  console.log("il est loggé : ", log);
+  // let log = isLoggedIn();
+  // console.log("il est loggé : ", log);
   return (
     <nav className="navbar navbar-light bg-light px-4">
       <Link to="/" className="navbar-brand">
@@ -33,22 +29,7 @@ export default function NavbarComponent({ isLoggedIn }) {
 
       <div>
         {/*si l'utilisateur est connecté alors il a accès aux différents bouton  : si non il n'y a pas accès  */}
-        {log ? (
-          <>
-            <Link to="/" className="btn btn-primary ms-2">
-              DECONNEXION{" "}
-            </Link>
-            <Link
-              to="/"
-              /*className="btn eval-final"*/ className="btn btn-primary ms-2"
-            >
-              AUTRE
-            </Link>
-            {/* <button  className="btn btn-danger ms-2">
-            Déconnexion
-          </button> */}
-          </>
-        ) : (
+        {isLoggedIn() ? (
           <>
             <Link to="/inscription" className="btn btn-primary ms-2">
               S'inscire{" "}
@@ -61,8 +42,23 @@ export default function NavbarComponent({ isLoggedIn }) {
             </Link>
 
             {/* <button  className="btn btn-danger ms-2">
-            Déconnexion
-          </button> */}
+          Déconnexion
+        </button> */}
+          </>
+        ) : (
+          <>
+            <Link to="/logout" className="btn btn-primary ms-2">
+              DECONNEXION{" "}
+            </Link>
+            <Link
+              to="/"
+              /*className="btn eval-final"*/ className="btn btn-primary ms-2"
+            >
+              AUTRE
+            </Link>
+            {/* <button  className="btn btn-danger ms-2">
+          Déconnexion
+        </button> */}
           </>
         )}
 
