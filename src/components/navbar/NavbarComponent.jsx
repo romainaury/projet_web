@@ -16,16 +16,16 @@ export default function NavbarComponent({ isLoggedIn, user }) {
     // const params = {
     // www-Authentificate : token,
     // };
+    const headers = new Headers();
+    headers.append("WWW-Authenticate", token)
+    headers.append("Content-Type", "application/json")
 
     const requestOptions = {
       method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        "WWW-Authentificate": token,
-      },
+      headers,
       // body: JSON.stringify(params),
     };
-    console.log("token  is 2 : ", requestOptions);
+    console.log("headers  is 2 : ", requestOptions);
     fetch("http://localhost:3001/matchmaking/participate", requestOptions)
       .then((response) => response.json())
       .then((response) => {
