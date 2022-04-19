@@ -17,9 +17,9 @@ function App() {
         <main id="App-main">
           <Routes>
             <Route element={<Home />} path="/" />
-            <Route path="/connection" element={<LogInContainer />} />
+            <Route path="/connexion" element={<LogInContainer />} />
             <Route path="/inscription" element={<SignInContainer />} />
-            <Route path="/deconnection" element={<LogOutContainer />} />
+            <Route path="/deconnexion" element={<LogOutContainer />} />
           </Routes>
         </main>
       </Provider>

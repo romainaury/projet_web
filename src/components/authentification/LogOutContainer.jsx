@@ -1,14 +1,14 @@
 import { connect } from "react-redux";
-import { logOut } from "../../actions/mainActions";
-import LogOutContainer from "./LogOutContainer";
+import { logOutAction } from "../../actions/mainActions";
+import LogoutOutComponent from "./LogOutComponent";
 
 
 const mapStateToProps = (state) => ({
-  user: state.user,
+  user: state.main.user,
 });
 
 const mapDispatchToProps = {
-  logOut: logOutAction,
+  logOutAction: logOutAction,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(LogOutContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(LogoutOutComponent);

@@ -4,14 +4,14 @@ import { Link } from "react-router-dom";
 // import { useNavigate } from "react-router-dom";
 
 export default function NavbarComponent({ isLoggedIn, user }) {
-  const [token, setTooken]=useState(user.token)
- 
+  const [token, setTooken] = useState(user.token)
+
   useEffect(() => {
     setTooken(user.token)
   }, [user]);
   console.log("user  is : ", user);
   console.log("token  is : ", token);
-  
+
 
 
   function participate(e) {
@@ -21,7 +21,7 @@ export default function NavbarComponent({ isLoggedIn, user }) {
 
     const requestOptions = {
       method: "GET",
-      headers: {  "Content-Type": "application/json", "WWW-Authentificate" : token },
+      headers: { "Content-Type": "application/json", "WWW-Authentificate": token },
       // body: JSON.stringify(params),
     };
 
@@ -42,12 +42,12 @@ export default function NavbarComponent({ isLoggedIn, user }) {
       <Link to="/" className="navbar-brand">
         Accueil
       </Link>
-      
+
       <div>
         {/*si l'utilisateur est connecté alors il a accès aux différents bouton  : si non il n'y a pas accès  */}
         {isLoggedIn() ? (
           <>
-            <Link to="/logout" className="btn btn-primary ms-2">
+            <Link to="/deconnexion" className="btn btn-primary ms-2">
               DECONNEXION{" "}
             </Link>
             <Link
@@ -68,39 +68,20 @@ export default function NavbarComponent({ isLoggedIn, user }) {
             <Link to="/inscription" className="btn btn-primary ms-2">
               S'inscire{" "}
             </Link>
+
             <Link
-              to="/connection"
-              /*className="btn eval-final"*/ className="btn btn-primary ms-2"
+              to="/connexion"
+              className="btn btn-primary ms-2"
             >
               Se connecter
             </Link>
 
-            {/* <button  className="btn btn-danger ms-2">
-          Déconnexion
-        </button> */}
 
-            {/* <button  className="btn btn-danger ms-2">
-          Déconnexion
-        </button> */}
           </>
         )}
 
-        {/* <>
-           
-            <button
-              // onClick={() => toggleModals("signUp")}
-              className="btn btn-primary"
-            >
-             Inscription
-            </button>
-            <button
-              // onClick={() => toggleModals("signIn")}
-              className="btn btn-primary ms-2"
-            >
-              Connexion
-            </button>
-          </> */}
-        {/* )} */}
+
+
       </div>
     </nav>
   );

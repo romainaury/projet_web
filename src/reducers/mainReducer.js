@@ -3,7 +3,7 @@ const initialState = {
     id: "",
     email: "",
     username: "",
-    token: "",
+    token: undefined,
   },
   deck: {},
 };
