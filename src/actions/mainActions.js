@@ -10,7 +10,7 @@ export const setUserAction = (userObj) => {
     }
 }
 
-export const logOut = () => {
+export const logOutAction = () => {
     return {
         type: "LOG_OUT"
     }
