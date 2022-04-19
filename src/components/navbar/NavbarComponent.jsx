@@ -4,10 +4,10 @@ import { Link } from "react-router-dom";
 // import { useNavigate } from "react-router-dom";
 
 export default function NavbarComponent({ isLoggedIn, user }) {
-  const [token, setTooken] = useState(user.token);
+  const [token, setToken] = useState(user.token);
 
   useEffect(() => {
-    setTooken(user.token);
+    setToken(user.token);
   }, [user]);
   console.log("user  is : ", user);
   console.log("token  is : ", token);

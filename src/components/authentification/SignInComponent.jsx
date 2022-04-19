@@ -8,7 +8,7 @@ const SignInComponent = ({ user }) => {
 
   useEffect(() => {
     if (user?.id) {
-      navigate("/login");
+      navigate("/connexion");
     }
   }, [user, navigate]);
 
