@@ -1,6 +1,4 @@
-import { useSelector } from "react-redux";
-
-export const SignInQuery = async ({ name, email, password }) => {
+export const signInQuery = async ({ name, email, password }) => {
   const requestOptions = {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
@@ -10,24 +8,25 @@ export const SignInQuery = async ({ name, email, password }) => {
   return fetch("http://localhost:3001/user", requestOptions);
 };
 
-export const LogOutQuery = async ({ user }) => {
+export const logOutQuery = async ({ token }) => {
   const requestOptions = {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      "WWW-Authenticate": user.token,
+      "WWW-Authenticate": token,
     },
   };
 
   return fetch("http://localhost:3001/logout", requestOptions);
 }
 
-export const GetAllUsersQuery = async () => {
-  const token = useSelector((state) => state.main.user.token);
-
+export const getAllUsersQuery = async ({ token }) => {
   const requestOptions = {
     method: "GET",
-    headers: { "Content-Type": "application/json", "WWW-Authenticate": token },
+    headers: {
+      "Content-Type": "application/json",
+      "WWW-Authenticate": token,
+    },
   };
 
   return fetch("http://localhost:3001/matchmaking/getAll", requestOptions);
@@ -64,10 +63,9 @@ Service est le suivant :
 /matchmaking/request
  
  
- "matchmakingId" : l’identifiant du matchmaking du joueur à qui on souhaite envoyer la requête
+ "matchmakingId" : l’identifiant du matchmaking du joueur à qui on souhaite envoyer la requête
 */
-export const AskMatch = async (matchmakingId, token) => {
-  const token = token 
+export const askMatch = async ({ matchmakingId, token }) => {
 
   const params = {
     matchmakingId: matchmakingId,
@@ -92,9 +90,8 @@ Ce Web Service nécessite 1 paramètre :
 — "matchmakingId" : l’identifiant du matchmaking du joueur ayant envoyé la requête
 Cet identifiant doit nécessairement être associé à un joueur qui vous a envoyé une requête.
 Dans ce cas un match est créé, et les informations concernant ce match sont retournées :*/
-export const AcceptRequestMatch = async (matchmakingId, token ) => {
-  const token = token ;
-  
+export const acceptRequestMatch = async ({ matchmakingId, token }) => {
+
   const params = {
     matchmakingId: matchmakingId,
   };
