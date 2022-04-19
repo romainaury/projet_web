@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 // import { useNavigate } from "react-router-dom";
 
 export default function NavbarComponent({ isLoggedIn, user }) {
-  const [token, setTooken] = useState(user.token)
+  const [token, setTooken] = useState(user.token);
 
   useEffect(() => {
     setTooken(user.token);
@@ -43,7 +43,7 @@ export default function NavbarComponent({ isLoggedIn, user }) {
       </Link>
 
       <div>
-        {/*si l'utilisateur est connecté alors il a accès aux différents bouton  : si non il n'y a pas accès  */}
+       
         {isLoggedIn() ? (
           <>
             <Link to="/deconnexion" className="btn btn-primary ms-2">
@@ -67,20 +67,19 @@ export default function NavbarComponent({ isLoggedIn, user }) {
             <Link to="/inscription" className="btn btn-primary ms-2">
               S'inscire{" "}
             </Link>
-
             <Link
               to="/connexion"
-              className="btn btn-primary ms-2"
+              /*className="btn eval-final"*/ className="btn btn-primary ms-2"
             >
               Se connecter
             </Link>
 
-
+         
           </>
         )}
 
-
-
+       
+       
       </div>
     </nav>
   );

@@ -32,7 +32,7 @@ const [validation, setValidation] = useState("");
   .then((response) => {
     console.log(response);
     setUser(response);
-    navigate("/");
+    navigate("/"); 
   })
   .catch(() => {
     alert("Utilisateur pas réussis co ");
