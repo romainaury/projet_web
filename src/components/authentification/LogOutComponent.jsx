@@ -11,7 +11,6 @@ const LogOutComponent = ({ user, logOutAction }) => {
     },
   }).then(
     (response) => {
-      console.log("response", response);
       navigate("/connexion");
       logOutAction();
     },
