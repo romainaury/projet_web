@@ -4,15 +4,13 @@ import { Link } from "react-router-dom";
 // import { useNavigate } from "react-router-dom";
 
 export default function NavbarComponent({ isLoggedIn, user }) {
-  const [token, setTooken]=useState(user.token)
- 
+  const [token, setTooken] = useState(user.token);
+
   useEffect(() => {
-    setTooken(user.token)
+    setTooken(user.token);
   }, [user]);
   console.log("user  is : ", user);
   console.log("token  is : ", token);
-  
-
 
   function participate(e) {
     // const params = {
@@ -21,10 +19,13 @@ export default function NavbarComponent({ isLoggedIn, user }) {
 
     const requestOptions = {
       method: "GET",
-      headers: {  "Content-Type": "application/json", "WWW-Authentificate" : token },
+      headers: {
+        "Content-Type": "application/json",
+        "WWW-Authentificate": token,
+      },
       // body: JSON.stringify(params),
     };
-
+    console.log("token  is 2 : ", requestOptions);
     fetch("http://localhost:3001/matchmaking/participate", requestOptions)
       .then((response) => response.json())
       .then((response) => {
@@ -35,14 +36,12 @@ export default function NavbarComponent({ isLoggedIn, user }) {
       });
   }
 
-
-
   return (
     <nav className="navbar navbar-light bg-light px-4">
       <Link to="/" className="navbar-brand">
         Accueil
       </Link>
-      
+
       <div>
         {/*si l'utilisateur est connecté alors il a accès aux différents bouton  : si non il n'y a pas accès  */}
         {isLoggedIn() ? (
