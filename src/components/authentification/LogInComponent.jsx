@@ -30,6 +30,7 @@ const [validation, setValidation] = useState("");
   fetch("http://localhost:3001/login", requestOptions)
   .then((response) => response.json())
   .then((response) => {
+    console.log(response);
     setUser(response);
     navigate("/");
   })
