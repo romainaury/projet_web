@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { Field, Form } from "react-final-form";
 import { useNavigate } from "react-router";
+import { SignInQuery } from "../../utils/queries";
 
 const SignInComponent = ({ user }) => {
   const navigate = useNavigate();
@@ -17,17 +18,9 @@ const SignInComponent = ({ user }) => {
       email: values.username + "@l3.fr",
       password: values.password,
     };
-
-    const requestOptions = {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(params),
-    };
-
-    fetch("http://localhost:3001/user", requestOptions)
+    SignInQuery(params)
       .then((response) => {
         if (response.status === 200) navigate("/connexion");
-        return response.json();
       })
       .catch(() => {
         alert("Utilisateur déjà créé");
