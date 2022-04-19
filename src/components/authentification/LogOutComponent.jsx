@@ -3,7 +3,7 @@ import { logOutQuery } from "../../utils/queries";
 
 const LogOutComponent = ({ user, logOutAction }) => {
     const navigate = useNavigate();
-    logOutQuery({ user })
+    logOutQuery(user)
         .then(
             (response) => {
                 navigate("/connexion");
