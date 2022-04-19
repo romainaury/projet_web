@@ -1,6 +1,8 @@
 // si vous voulez vraiement comprendre tous le code de cet page je vous invite à regarder cet vidéo https://www.youtube.com/watch?v=boZJtNzRCDQ
 import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+
+import { AskParticipate } from "../../utils/queries";
 // import { useNavigate } from "react-router-dom";
 
 export default function NavbarComponent({ isLoggedIn, user }) {
@@ -13,26 +15,31 @@ export default function NavbarComponent({ isLoggedIn, user }) {
   console.log("token  is : ", token);
 
   function participate(e) {
-    // const params = {
-    // www-Authentificate : token,
-    // };
-    const headers = new Headers();
-    headers.append("WWW-Authenticate", token)
-    headers.append("Content-Type", "application/json")
+    // const headers = new Headers();
+    // headers.append("WWW-Authenticate", token)
+    // headers.append("Content-Type", "application/json")
 
-    const requestOptions = {
-      method: "GET",
-      headers,
-      // body: JSON.stringify(params),
-    };
-    console.log("headers  is 2 : ", requestOptions);
-    fetch("http://localhost:3001/matchmaking/participate", requestOptions)
-      .then((response) => response.json())
+    // const requestOptions = {
+    //   method: "GET",
+    //   headers,
+
+    // };
+    // console.log("headers  is 2 : ", requestOptions);
+    // fetch("http://localhost:3001/matchmaking/participate", requestOptions)
+    //   .then((response) => response.json())
+    //   .then((response) => {
+    //     console.log(response);
+    //   })
+    //   .catch(() => {
+    //     alert("Utilisateur pas réussis participate ");
+    //   });
+    console.log("lalalalaaaaaa");
+    AskParticipate(token)
       .then((response) => {
-        console.log(response);
+        if (response.status === 200) console.log("ok");
       })
       .catch(() => {
-        alert("Utilisateur pas réussis participate ");
+        alert("erreur participer");
       });
   }
 
@@ -43,7 +50,6 @@ export default function NavbarComponent({ isLoggedIn, user }) {
       </Link>
 
       <div>
-       
         {isLoggedIn() ? (
           <>
             <Link to="/deconnexion" className="btn btn-primary ms-2">
@@ -56,7 +62,7 @@ export default function NavbarComponent({ isLoggedIn, user }) {
               AUTRE
             </Link>
             <div
-              onClick={(e) => participate()}
+              onClick={(e) => participate(e)}
               className="btn btn-primary ms-2"
             >
               Participer{" "}
@@ -73,13 +79,8 @@ export default function NavbarComponent({ isLoggedIn, user }) {
             >
               Se connecter
             </Link>
-
-         
           </>
         )}
-
-       
-       
       </div>
     </nav>
   );

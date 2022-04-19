@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { Field, Form } from "react-final-form";
 import { useNavigate } from "react-router";
-import { SignInQuery } from "../../utils/queries";
+import { signInQuery } from "../../utils/queries";
 
 const SignInComponent = ({ user }) => {
   const navigate = useNavigate();
@@ -18,7 +18,7 @@ const SignInComponent = ({ user }) => {
       email: values.username + "@l3.fr",
       password: values.password,
     };
-    SignInQuery(params)
+    signInQuery(params)
       .then((response) => {
         if (response.status === 200) navigate("/connexion");
       })
