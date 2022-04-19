@@ -7,7 +7,7 @@ const ListeJoueursComponent = ({ user, className = "" }) => {
 
   useEffect(() => {
     if (user.id !== "") {
-      getAllUsersQuery(user)
+      getAllUsersQuery(user.token)
         .then((response) => {
           return response.json();
         })
