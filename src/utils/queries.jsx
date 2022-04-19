@@ -20,14 +20,15 @@ export const LogOutQuery = async ({ user }) => {
   };
 
   return fetch("http://localhost:3001/logout", requestOptions);
-}
+};
 
-export const GetAllUsersQuery = async () => {
-  const token = useSelector((state) => state.main.user.token);
-
+export const getAllUsersQuery = async (user) => {
   const requestOptions = {
     method: "GET",
-    headers: { "Content-Type": "application/json", "WWW-Authenticate": token },
+    headers: {
+      "Content-Type": "application/json",
+      "WWW-Authenticate": user.token,
+    },
   };
 
   return fetch("http://localhost:3001/matchmaking/getAll", requestOptions);
@@ -45,11 +46,9 @@ Service est le suivant :
 export const AskMatch = async (matchmakingId) => {
   const token = useSelector((state) => state.main.user.token);
 
-
   const params = {
     matchmakingId: matchmakingId,
   };
-
 
   const requestOptions = {
     method: "GET",
@@ -73,11 +72,9 @@ Dans ce cas un match est créé, et les informations concernant ce match sont re
 export const AcceptRequestMatch = async (matchmakingId) => {
   const token = useSelector((state) => state.main.user.token);
 
-
   const params = {
     matchmakingId: matchmakingId,
   };
-
 
   const requestOptions = {
     method: "GET",
@@ -85,5 +82,8 @@ export const AcceptRequestMatch = async (matchmakingId) => {
     body: JSON.stringify(params),
   };
 
-  return fetch("http://localhost:3001/matchmaking/acceptRequest", requestOptions);
+  return fetch(
+    "http://localhost:3001/matchmaking/acceptRequest",
+    requestOptions
+  );
 };
