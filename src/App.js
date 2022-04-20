@@ -6,7 +6,6 @@ import Home from "./components/home/HomeContainer";
 import LogInContainer from "./components/authentification/LogInContainer";
 import SignInContainer from "./components/authentification/SignInContainer";
 import LogOutContainer from "./components/authentification/LogOutContainer";
-import ListeJoueursContainer from "./components/joueurs/ListeJoueursContainer";
 import { store } from "./app/store";
 import { Provider } from "react-redux";
 
