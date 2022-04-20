@@ -57,18 +57,18 @@ Service est le suivant :
  
  "matchmakingId" : l’identifiant du matchmaking du joueur à qui on souhaite envoyer la requête
 */
-export const askMatch = async ({ matchmakingId, token }) => {
-  const params = {
-    matchmakingId: matchmakingId,
-  };
-
+export const askMatch = async (matchmakingId, token) => {
   const requestOptions = {
     method: "GET",
     headers: { "Content-Type": "application/json", "WWW-Authenticate": token },
-    body: JSON.stringify(params),
   };
 
-  return fetch("http://localhost:3001/matchmaking/request", requestOptions);
+  const req =  fetch(
+    "http://localhost:3001/matchmaking/request?matchmakingId=" + matchmakingId,
+    requestOptions
+  );
+
+  return req;
 };
 
 /*Accepter une requête

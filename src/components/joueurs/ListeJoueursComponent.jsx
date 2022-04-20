@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { getAllUsersQuery } from "../../utils/queries";
+import { useSelector } from "react-redux";
+import { getAllUsersQuery, askMatch } from "../../utils/queries";
 import "./liste-joueurs-style.css";
 
 const ListeJoueursComponent = ({ user, className = "" }) => {
@@ -32,9 +33,25 @@ const ListeJoueursComponent = ({ user, className = "" }) => {
   );
 };
 
+function handleClickCarteJoueur(matchmakingId, token) {
+  console.log("you click on joueur ", matchmakingId, token);
+  askMatch(matchmakingId, token)
+    .then((response) => {
+      if (response.status === 200) console.log("Ok ");
+    })
+    .catch((err) => {
+      console.log(err)
+      alert("erreur ask match ");
+    });
+}
+
 const CarteJoueur = ({ email, name, matchmakingId }) => {
+  const token = useSelector((state) => state.main.user.token);
   return (
-    <div className="col-12 px-1 py-1 bg-light rounded-3">
+    <div
+      onClick={(e) => handleClickCarteJoueur(matchmakingId, token)}
+      className="col-12 px-1 py-1 bg-light rounded-3"
+    >
       <p className="mb-1">
         {name} ({email})
       </p>

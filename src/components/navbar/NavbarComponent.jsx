@@ -1,14 +1,17 @@
 // si vous voulez vraiement comprendre tous le code de cet page je vous invite à regarder cet vidéo https://www.youtube.com/watch?v=boZJtNzRCDQ
 import React, { useContext, useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { AskParticipate } from "../../utils/queries";
 
 export default function NavbarComponent({ isLoggedIn, user }) {
-  const [token, setToken] = useState(user.token);
+  const token = useSelector(state => state.main.user.token)
+  // console.log("token bus " , token2)
+  // const [token, setToken] = useState(user.token);
 
-  useEffect(() => {
-    setToken(user.token);
-  }, [user]);
+  // useEffect(() => {
+  //   setToken(user.token);
+  // }, [user]);
 
   function participate(e) {
     AskParticipate(token)
