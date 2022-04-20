@@ -7,6 +7,7 @@ const ListeJoueursComponent = ({ user, className = "" }) => {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
+    setInterval(() => {
     if (user.id !== "") {
       console.log(user);
       getAllUsersQuery(user)
@@ -19,11 +20,16 @@ const ListeJoueursComponent = ({ user, className = "" }) => {
         })
         .catch(console.log);
     }
+    
+  }, 15000);
   }, [user]);
 
+
+  
   return (
     <div className={"container " + className}>
-      <h1>hey</h1>
+      <h1>Liste Joueur</h1>
+      
       <span>{user.name}</span>
       {users.map((u) => {
         console.log(u);
@@ -32,6 +38,10 @@ const ListeJoueursComponent = ({ user, className = "" }) => {
     </div>
   );
 };
+
+
+
+
 
 function handleClickCarteJoueur(matchmakingId, token) {
   console.log("you click on joueur ", matchmakingId, token);
