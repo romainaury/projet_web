@@ -4,6 +4,7 @@ import {
   getAllUsersQuery,
   askMatch,
   AskParticipate,
+  acceptRequestMatch
 } from "../../utils/queries";
 import "./liste-joueurs-style.css";
 
@@ -101,7 +102,14 @@ const RequestList = ({ email, name, matchmakingId }) => {
   }
 
   function accepte (){
-    
+    acceptRequestMatch
+    .then((response) => {
+      if (response.status === 200) console.log("Ok ");
+    })
+    .catch((err) => {
+      console.log(err);
+      alert("erreur accepte match ");
+    });
   }
   return (
     <div
