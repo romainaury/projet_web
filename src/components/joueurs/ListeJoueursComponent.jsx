@@ -1,47 +1,64 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { getAllUsersQuery, askMatch } from "../../utils/queries";
+import {
+  getAllUsersQuery,
+  askMatch,
+  AskParticipate,
+} from "../../utils/queries";
 import "./liste-joueurs-style.css";
 
 const ListeJoueursComponent = ({ user, className = "" }) => {
   const [users, setUsers] = useState([]);
-
+  const token = useSelector((state) => state.main.user.token);
+  const [request, setRequest] = useState([]);
   useEffect(() => {
     setInterval(() => {
-    if (user.id !== "") {
-      console.log(user);
-      getAllUsersQuery(user)
-        .then((response) => {
-          return response.json();
-        })
-        .then((response) => {
-          setUsers(response);
-          console.log(response);
-        })
-        .catch(console.log);
-    }
-    
-  }, 15000);
+      if (user.id !== "") {
+        // console.log(user);
+        getAllUsersQuery(user)
+          .then((response) => {
+            return response.json();
+          })
+          .then((response) => {
+            setUsers(response);
+           
+          })
+          .catch(console.log);
+
+        AskParticipate(token)
+          .then((response) => {
+            if (response.status === 200) {
+              return response.json();
+            }
+          })
+          .then((response) => setRequest(response.request))
+          .catch(() => {
+            alert("erreur participer");
+          });
+      }
+    }, 15000);
   }, [user]);
 
-
-  
   return (
     <div className={"container " + className}>
       <h1>Liste Joueur</h1>
-      
-      <span>{user.name}</span>
-      {users.map((u) => {
-        console.log(u);
-        return <CarteJoueur {...u} />;
-      })}
+      <>
+        <span>{user.name}</span>
+        {users.map((u) => {
+          console.log(u);
+          return <CarteJoueur {...u} />;
+        })}
+        {console.log("all request", request )}
+
+        <h2>Les Personnes qui vous ont demandés en combat </h2>
+        {request.map((u) => {
+          console.log(u);
+          return <RequestList {...u} />;
+        })}
+      </>
     </div>
   );
 };
-
-
-
-
 
 function handleClickCarteJoueur(matchmakingId, token) {
   console.log("you click on joueur ", matchmakingId, token);
@@ -50,7 +67,7 @@ function handleClickCarteJoueur(matchmakingId, token) {
       if (response.status === 200) console.log("Ok ");
     })
     .catch((err) => {
-      console.log(err)
+      console.log(err);
       alert("erreur ask match ");
     });
 }
@@ -69,4 +86,34 @@ const CarteJoueur = ({ email, name, matchmakingId }) => {
   );
 };
 
+
+
+function handleClickRequestJoueur(){
+
+}
+
+const RequestList = ({ email, name, matchmakingId }) => {
+  const token = useSelector((state) => state.main.user.token);
+
+
+  function refuse (){
+
+  }
+
+  function accepte (){
+    
+  }
+  return (
+    <div
+      onClick={(e) => handleClickRequestJoueur(matchmakingId, token)}
+      className="col-12 px-1 py-1 bg-light rounded-3"
+    >
+      <p className="mb-1">
+        {name} ({email})
+      </p>
+      <button onClick={(e)=>refuse ( )}>Ok</button>
+      <button onClick={(e)=>accepte( )}>Non</button>
+    </div>
+  );
+};
 export default ListeJoueursComponent;
