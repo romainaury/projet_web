@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { AskParticipate } from "../../utils/queries";
 
 export default function NavbarComponent({ isLoggedIn, user }) {
-  const token = useSelector(state => state.main.user.token)
+  const token = useSelector((state) => state.main.user.token);
   // console.log("token bus " , token2)
   // const [token, setToken] = useState(user.token);
 
@@ -40,6 +40,10 @@ export default function NavbarComponent({ isLoggedIn, user }) {
             </div>
             <Link to="/deconnexion" className="btn btn-secondary ms-2">
               Déconnexion{" "}
+            </Link>
+
+            <Link to="/preparePioche" className="btn btn-secondary ms-2">
+              Prepare Pioche
             </Link>
           </>
         ) : (

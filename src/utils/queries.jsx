@@ -155,3 +155,15 @@ export const jouerUneCarteChampion = async ({ card, playCard }) => {
 
   return fetch("http://localhost:3001/match/attack", requestOptions);
 };
+
+
+export const piocherUneCarte  = async (token) => {
+  console.log("piocherUneCarte",token )
+  const requestOptions = {
+    method: "GET",
+    headers: { "Content-Type": "application/json" , "WWW-Authenticate": token},
+    // body: JSON.stringify({ card, playCard }),
+  };
+
+  return fetch("http://localhost:3001/match/pickCard", requestOptions);
+};
