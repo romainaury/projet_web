@@ -1,9 +1,41 @@
-.inscription-validation{
-    color: red;
+.inscription-validation {
+  color: red;
 }
 
 .auth-form {
-    background: rgba(255, 255, 255, .9);
-    padding: 1rem;
-    border-radius: .5rem;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 1rem;
+  border-radius: 0.5rem;
+}
+
+.login-form::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  background-image: url("../../../public/assets/Fond_connexion.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  transform: scale(1.01);
+  filter: blur(0.35rem) brightness(0.3) grayscale(0.4);
+  opacity: 0.6;
+  z-index: -1;
+}
+
+.signin-form::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  background-image: url("../../../public/assets/Fond_inscription.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  transform: scale(1.01);
+  filter: blur(0.35rem) brightness(0.3) grayscale(0.4);
+  opacity: 0.6;
+  z-index: -1;
 }

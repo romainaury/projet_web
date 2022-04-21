@@ -23,7 +23,7 @@ export const CardComponent = ({ champion, onClick, isSplited }) => {
         <p className="mx-2 my-0 fw-bold">{name}</p>
         <p className="mx-2 my-0 py-0 text-end">
           {[...Array(info.difficulty)].map(() => (
-            <i class="col-1 bi bi-star-fill"></i>
+            <i className="col-1 bi bi-star-fill"></i>
           ))}
         </p>
         <div className="row">

@@ -54,7 +54,7 @@ const LogInComponent = ({ setUser }) => {
   }
 
   return (
-    <div className={"row h-100 justify-content-center"}>
+    <div className={"row h-100 justify-content-center mx-0 login-form"}>
       <Form
         onSubmit={verif}
         render={({ handleSubmit }) => (
