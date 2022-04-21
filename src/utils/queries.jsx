@@ -81,7 +81,7 @@ Ce Web Service nécessite 1 paramètre :
 — "matchmakingId" : l’identifiant du matchmaking du joueur ayant envoyé la requête
 Cet identifiant doit nécessairement être associé à un joueur qui vous a envoyé une requête.
 Dans ce cas un match est créé, et les informations concernant ce match sont retournées :*/
-export const acceptRequestMatch = async ({ matchmakingId, token }) => {
+export const acceptRequestMatch = async ( matchmakingId, token ) => {
   const params = {
     matchmakingId: matchmakingId,
   };
@@ -89,11 +89,11 @@ export const acceptRequestMatch = async ({ matchmakingId, token }) => {
   const requestOptions = {
     method: "GET",
     headers: { "Content-Type": "application/json", "WWW-Authenticate": token },
-    body: JSON.stringify(params),
+    // body: JSON.stringify(params),
   };
 
   return fetch(
-    "http://localhost:3001/matchmaking/acceptRequest",
+    "http://localhost:3001/matchmaking/acceptRequest?matchmakingId=" + matchmakingId,
     requestOptions
   );
 };

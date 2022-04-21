@@ -8,7 +8,7 @@ import {
 } from "../../utils/queries";
 import "./liste-joueurs-style.css";
 
-const ListeJoueursComponent = ({ user, className = "" }) => {
+const ListeJoueursComponent = ({ isLoggedIn , user, className = "" }) => {
   const [users, setUsers] = useState([]);
   const token = useSelector((state) => state.main.user.token);
   const [request, setRequest] = useState([]);
@@ -25,7 +25,7 @@ const ListeJoueursComponent = ({ user, className = "" }) => {
            
           })
           .catch(console.log);
-
+        if ( isLoggedIn ()){
         AskParticipate(token)
           .then((response) => {
             if (response.status === 200) {
@@ -36,7 +36,7 @@ const ListeJoueursComponent = ({ user, className = "" }) => {
           .catch(() => {
             alert("erreur participer");
           });
-      }
+      }}
     }, 15000);
   }, [user]);
 
@@ -97,12 +97,13 @@ const RequestList = ({ email, name, matchmakingId }) => {
   const token = useSelector((state) => state.main.user.token);
 
 
-  function refuse (){
+  // function refuse (matchmakingId, token){
+  //   console.log("no  fight ", matchmakingId, token)
+  // }
 
-  }
-
-  function accepte (){
-    acceptRequestMatch
+  function accepte (matchmakingId, token){
+    console.log("accepte fight ", matchmakingId, token)
+    acceptRequestMatch(matchmakingId, token)
     .then((response) => {
       if (response.status === 200) console.log("Ok ");
     })
@@ -119,8 +120,8 @@ const RequestList = ({ email, name, matchmakingId }) => {
       <p className="mb-1">
         {name} ({email})
       </p>
-      <button onClick={(e)=>refuse ( )}>Ok</button>
-      <button onClick={(e)=>accepte( )}>Non</button>
+      <button onClick={(e)=> accepte( matchmakingId, token)}>Ok</button>
+      {/* <button onClick={(e)=>refuse (matchmakingId, token )}>Non</button> */}
     </div>
   );
 };
