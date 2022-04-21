@@ -1,7 +1,7 @@
 import React from "react";
 import "./card-style.scss";
 
-export const CardComponent = ({ champion, onClick, isSplited }) => {
+const CardComponent = ({ champion, onClick, isSplited }) => {
   const { key, name, title, info } = champion;
 
   return (
@@ -14,7 +14,7 @@ export const CardComponent = ({ champion, onClick, isSplited }) => {
       }
       onClick={() => onClick(champion)}
     >
-      <div className="text-white border border-3 border-dark overflow-hidden cursor-pointer position-relative">
+      <div className="text-white border border-3 border-dark overflow-hidden cursor-pointer position-relative bg-transparent">
         <img
           className="position-absolute h-100 w-100 bg-img"
           src={`https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${key}_0.jpg`}
@@ -43,3 +43,5 @@ export const CardComponent = ({ champion, onClick, isSplited }) => {
     </div>
   );
 };
+
+export default CardComponent;
