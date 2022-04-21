@@ -106,44 +106,45 @@ export const getAllCards = async () => {
 
 /*------------------------------------------------Match ------------------------------------------------------------*/
 
-export const finDuMatch = async () => {
+export const finDuMatch = async (token) => {
+  console.log("finDuMatch", token )
   const requestOptions = {
     method: "GET",
-    headers: { "Content-Type": "application/json" },
+    headers: { "Content-Type": "application/json",  "WWW-Authenticate": token },
   };
 
-  return fetch("http://localhost:3001/match/finisMatch", requestOptions);
+  return fetch("http://localhost:3001/match/finishMatch", requestOptions);
 };
 
-export const finDuTour = async () => {
+export const finDuTour = async (token) => {
+  console.log("finDuTour",token)
   const requestOptions = {
     method: "GET",
-    headers: { "Content-Type": "application/json" },
+    headers: { "Content-Type": "application/json",  "WWW-Authenticate": token },
   };
 
   return fetch("http://localhost:3001/match/endTurn", requestOptions);
 };
 
-export const attaquerDirectementLesPointsDeVieDelAdversaire = async ({
-  card,
-}) => {
+export const attaquerDirectementLesPointsDeVieDelAdversaire = async (token ) => {
+  console.log("attaquerDirectementLesPointsDeVieDelAdversaire",token)
   const requestOptions = {
     method: "GET",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ card }),
+    headers: { "Content-Type": "application/json",  "WWW-Authenticate": token },
+   
   };
 
   return fetch("http://localhost:3001/match/attackPlayer", requestOptions);
 };
 
-export const faireAttaquerCnChampion = async ({ card, ennemyCard }) => {
+export const faireAttaquerUnChampion = async (token , card, ennemyCard  ) => {
   const requestOptions = {
     method: "GET",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ card, ennemyCard }),
+    headers: { "Content-Type": "application/json", "WWW-Authenticate": token },
+    // body: JSON.stringify({ card, ennemyCard }),
   };
 
-  return fetch("http://localhost:3001/match/attack", requestOptions);
+  return fetch("http://localhost:3001/match/attack?card="+card+"&ennemyCard="+ennemyCard, requestOptions);
 };
 
 export const jouerUneCarteChampion = async ( token , key  ) => {
