@@ -146,18 +146,18 @@ export const faireAttaquerCnChampion = async ({ card, ennemyCard }) => {
   return fetch("http://localhost:3001/match/attack", requestOptions);
 };
 
-export const jouerUneCarteChampion = async ({ card, playCard }) => {
+export const jouerUneCarteChampion = async ( token , key  ) => {
   const requestOptions = {
     method: "GET",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ card, playCard }),
+    headers: { "Content-Type": "application/json", "WWW-Authenticate": token },
+    // body: JSON.stringify({ card, playCard }),
   };
 
-  return fetch("http://localhost:3001/match/attack", requestOptions);
+  return fetch("http://localhost:3001/match/playCard?card="+ key, requestOptions);
 };
 
 
-export const piocherUneCarte  = async (token) => {
+export const piocherUneCarte  = async (token ) => {
   console.log("piocherUneCarte",token )
   const requestOptions = {
     method: "GET",
@@ -165,5 +165,5 @@ export const piocherUneCarte  = async (token) => {
     // body: JSON.stringify({ card, playCard }),
   };
 
-  return fetch("http://localhost:3001/match/pickCard", requestOptions);
+  return fetch("http://localhost:3001/match/pickCard" , requestOptions);
 };
