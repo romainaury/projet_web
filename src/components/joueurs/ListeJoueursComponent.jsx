@@ -10,7 +10,6 @@ import "./liste-joueurs-style.css";
 
 const ListeJoueursComponent = ({ isLoggedIn, user }) => {
   const [users, setUsers] = useState([]);
-  const token = useSelector((state) => state.main.user.token);
   const [request, setRequest] = useState([]);
 
   useEffect(() => {
@@ -21,64 +20,54 @@ const ListeJoueursComponent = ({ isLoggedIn, user }) => {
           .then(setUsers)
           .catch(console.log);
         if (isLoggedIn()) {
-          AskParticipate(token)
+          AskParticipate(user.token)
             .then((response) => {
-              if (response.status === 200) {
-                return response.json();
-              }
+              if (response.status === 200) return response.json();
             })
             .then((response) => setRequest(response.request))
-            .catch(() => {
-              alert("erreur participer");
-            });
+            .catch(console.log);
         }
       }
     }, 10000);
     return () => {
       clearInterval(interval);
     };
-  }, [user]);
+  }, [isLoggedIn, user]);
 
   return (
     <div className={"container "}>
-      <h1>Liste Joueur</h1>
+      <h1>Liste Joueurs en attente</h1>
       <>
         <span>{user.name}</span>
         {users.map((u) => {
-          console.log(u);
-          return <CarteJoueur {...u} />;
+          return <CarteJoueur key={u.matchmakingId} {...u} />;
         })}
-        {console.log("all request", request)}
 
-        <h2>Les Personnes qui vous ont demandés en combat </h2>
+        <h2>Demandes externes :</h2>
         {request.map((u) => {
-          console.log(u);
-          return <RequestList {...u} />;
+          return <RequestCard key={u.matchmakingId} {...u} />;
         })}
       </>
     </div>
   );
 };
 
-function handleClickCarteJoueur(matchmakingId, token) {
-  console.log("you click on joueur ", matchmakingId, token);
-  askMatch(matchmakingId, token)
-    .then((response) => {
-      if (response.status === 200) console.log("Ok ");
-    })
-    .catch((err) => {
-      console.log(err);
-      alert("erreur ask match ");
-    });
-}
-
 const CarteJoueur = ({ email, name, matchmakingId }) => {
   const token = useSelector((state) => state.main.user.token);
+
+  const handleClick = () => {
+    askMatch(matchmakingId, token)
+      .then((response) => {
+        if (response.status === 200)
+          console.log("Match demandé à " + matchmakingId);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   return (
-    <div
-      onClick={(e) => handleClickCarteJoueur(matchmakingId, token)}
-      className="col-12 px-1 py-1 bg-light rounded-3"
-    >
+    <div onClick={handleClick} className="col-12 px-1 py-1 bg-light rounded-3">
       <p className="mb-1">
         {name} ({email})
       </p>
@@ -86,14 +75,8 @@ const CarteJoueur = ({ email, name, matchmakingId }) => {
   );
 };
 
-function handleClickRequestJoueur() {}
-
-const RequestList = ({ email, name, matchmakingId }) => {
+const RequestCard = ({ email, name, matchmakingId }) => {
   const token = useSelector((state) => state.main.user.token);
-
-  // function refuse (matchmakingId, token){
-  //   console.log("no  fight ", matchmakingId, token)
-  // }
 
   function accepte(matchmakingId, token) {
     console.log("accepte fight ", matchmakingId, token);
@@ -107,10 +90,7 @@ const RequestList = ({ email, name, matchmakingId }) => {
       });
   }
   return (
-    <div
-      onClick={(e) => handleClickRequestJoueur(matchmakingId, token)}
-      className="col-12 px-1 py-1 bg-light rounded-3"
-    >
+    <div className="col-12 px-1 py-1 bg-light rounded-3">
       <p className="mb-1">
         {name} ({email})
       </p>
