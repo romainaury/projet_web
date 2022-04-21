@@ -4,44 +4,43 @@ import {
   getAllUsersQuery,
   askMatch,
   AskParticipate,
-  acceptRequestMatch
+  acceptRequestMatch,
 } from "../../utils/queries";
 import "./liste-joueurs-style.css";
 
-const ListeJoueursComponent = ({ isLoggedIn , user, className = "" }) => {
+const ListeJoueursComponent = ({ isLoggedIn, user }) => {
   const [users, setUsers] = useState([]);
   const token = useSelector((state) => state.main.user.token);
   const [request, setRequest] = useState([]);
+
   useEffect(() => {
-    setInterval(() => {
+    const interval = setInterval(() => {
       if (user.id !== "") {
-        // console.log(user);
         getAllUsersQuery(user)
-          .then((response) => {
-            return response.json();
-          })
-          .then((response) => {
-            setUsers(response);
-           
-          })
+          .then((response) => response.json())
+          .then(setUsers)
           .catch(console.log);
-        if ( isLoggedIn ()){
-        AskParticipate(token)
-          .then((response) => {
-            if (response.status === 200) {
-              return response.json();
-            }
-          })
-          .then((response) => setRequest(response.request))
-          .catch(() => {
-            alert("erreur participer");
-          });
-      }}
-    }, 15000);
+        if (isLoggedIn()) {
+          AskParticipate(token)
+            .then((response) => {
+              if (response.status === 200) {
+                return response.json();
+              }
+            })
+            .then((response) => setRequest(response.request))
+            .catch(() => {
+              alert("erreur participer");
+            });
+        }
+      }
+    }, 10000);
+    return () => {
+      clearInterval(interval);
+    };
   }, [user]);
 
   return (
-    <div className={"container " + className}>
+    <div className={"container "}>
       <h1>Liste Joueur</h1>
       <>
         <span>{user.name}</span>
@@ -49,7 +48,7 @@ const ListeJoueursComponent = ({ isLoggedIn , user, className = "" }) => {
           console.log(u);
           return <CarteJoueur {...u} />;
         })}
-        {console.log("all request", request )}
+        {console.log("all request", request)}
 
         <h2>Les Personnes qui vous ont demandés en combat </h2>
         {request.map((u) => {
@@ -87,30 +86,25 @@ const CarteJoueur = ({ email, name, matchmakingId }) => {
   );
 };
 
-
-
-function handleClickRequestJoueur(){
-
-}
+function handleClickRequestJoueur() {}
 
 const RequestList = ({ email, name, matchmakingId }) => {
   const token = useSelector((state) => state.main.user.token);
-
 
   // function refuse (matchmakingId, token){
   //   console.log("no  fight ", matchmakingId, token)
   // }
 
-  function accepte (matchmakingId, token){
-    console.log("accepte fight ", matchmakingId, token)
+  function accepte(matchmakingId, token) {
+    console.log("accepte fight ", matchmakingId, token);
     acceptRequestMatch(matchmakingId, token)
-    .then((response) => {
-      if (response.status === 200) console.log("Ok ");
-    })
-    .catch((err) => {
-      console.log(err);
-      alert("erreur accepte match ");
-    });
+      .then((response) => {
+        if (response.status === 200) console.log("Ok ");
+      })
+      .catch((err) => {
+        console.log(err);
+        alert("erreur accepte match ");
+      });
   }
   return (
     <div
@@ -120,7 +114,7 @@ const RequestList = ({ email, name, matchmakingId }) => {
       <p className="mb-1">
         {name} ({email})
       </p>
-      <button onClick={(e)=> accepte( matchmakingId, token)}>Ok</button>
+      <button onClick={(e) => accepte(matchmakingId, token)}>Ok</button>
       {/* <button onClick={(e)=>refuse (matchmakingId, token )}>Non</button> */}
     </div>
   );

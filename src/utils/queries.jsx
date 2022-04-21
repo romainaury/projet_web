@@ -106,8 +106,16 @@ export const getAllCards = async () => {
 
 /*------------------------------------------------Match ------------------------------------------------------------*/
 
+export const getMatchInfo = async (token) => {
+  const requestOptions = {
+    method: "GET",
+    headers: { "Content-Type": "application/json",  "WWW-Authenticate": token },
+  };
+
+  return fetch("http://localhost:3001/match/getMatch", requestOptions);
+};
+
 export const finDuMatch = async (token) => {
-  console.log("finDuMatch", token )
   const requestOptions = {
     method: "GET",
     headers: { "Content-Type": "application/json",  "WWW-Authenticate": token },
@@ -117,7 +125,6 @@ export const finDuMatch = async (token) => {
 };
 
 export const finDuTour = async (token) => {
-  console.log("finDuTour",token)
   const requestOptions = {
     method: "GET",
     headers: { "Content-Type": "application/json",  "WWW-Authenticate": token },
@@ -127,7 +134,6 @@ export const finDuTour = async (token) => {
 };
 
 export const attaquerDirectementLesPointsDeVieDelAdversaire = async (token ) => {
-  console.log("attaquerDirectementLesPointsDeVieDelAdversaire",token)
   const requestOptions = {
     method: "GET",
     headers: { "Content-Type": "application/json",  "WWW-Authenticate": token },
@@ -141,7 +147,6 @@ export const faireAttaquerUnChampion = async (token , card, ennemyCard  ) => {
   const requestOptions = {
     method: "GET",
     headers: { "Content-Type": "application/json", "WWW-Authenticate": token },
-    // body: JSON.stringify({ card, ennemyCard }),
   };
 
   return fetch("http://localhost:3001/match/attack?card="+card+"&ennemyCard="+ennemyCard, requestOptions);
@@ -151,7 +156,6 @@ export const jouerUneCarteChampion = async ( token , key  ) => {
   const requestOptions = {
     method: "GET",
     headers: { "Content-Type": "application/json", "WWW-Authenticate": token },
-    // body: JSON.stringify({ card, playCard }),
   };
 
   return fetch("http://localhost:3001/match/playCard?card="+ key, requestOptions);
@@ -159,11 +163,9 @@ export const jouerUneCarteChampion = async ( token , key  ) => {
 
 
 export const piocherUneCarte  = async (token ) => {
-  console.log("piocherUneCarte",token )
   const requestOptions = {
     method: "GET",
     headers: { "Content-Type": "application/json" , "WWW-Authenticate": token},
-    // body: JSON.stringify({ card, playCard }),
   };
 
   return fetch("http://localhost:3001/match/pickCard" , requestOptions);
