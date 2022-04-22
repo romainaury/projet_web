@@ -9,7 +9,9 @@ const CardComponent = ({ champion, onClick, isSplited }) => {
       className={
         "flex-shrink-1 " +
         "card border-0 py-1 px-1 " +
-        (isSplited ? "col-6 col-lg-4 col-xl-3" : " col-6 col-md-4 col-lg-3 col-xl-3") +
+        (isSplited
+          ? "col-6 col-lg-4 col-xl-3"
+          : " col-6 col-md-4 col-lg-3 col-xl-3") +
         "position-relative bg-transparent"
       }
       onClick={() => onClick(champion)}
@@ -22,8 +24,8 @@ const CardComponent = ({ champion, onClick, isSplited }) => {
         />
         <p className="mx-2 my-0 fw-bold">{name}</p>
         <p className="mx-2 my-0 py-0 text-end">
-          {[...Array(info.difficulty)].map(() => (
-            <i className="col-1 bi bi-star-fill"></i>
+          {[...Array(info.difficulty)].map((_, i) => (
+            <i key={i} className="col-1 bi bi-star-fill"></i>
           ))}
         </p>
         <div className="row">

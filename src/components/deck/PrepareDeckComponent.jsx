@@ -4,7 +4,7 @@ import CardList from "../card/CardListComponent";
 import { getAllCards, initialiserDeck } from "../../utils/queries";
 import "./prepare-deck-style.scss";
 
-const PrepareDeckComponent = ({ user }) => {
+const PrepareDeckComponent = ({ user, match }) => {
   const [availableChampions, setAvailableChampions] = useState([]);
   const [selectedChampions, setSelectedChampions] = useState([]);
 
@@ -19,11 +19,11 @@ const PrepareDeckComponent = ({ user }) => {
   };
 
   const ajouterChampion = (champion) => {
-    if(selectedChampions.length < 20){
-        setAvailableChampions(availableChampions.filter((c) => c !== champion));
-        selectedChampions.push(champion);
-        selectedChampions.sort(compare);
-        setSelectedChampions(selectedChampions);
+    if (selectedChampions.length < 20) {
+      setAvailableChampions(availableChampions.filter((c) => c !== champion));
+      selectedChampions.push(champion);
+      selectedChampions.sort(compare);
+      setSelectedChampions(selectedChampions);
     }
   };
 
@@ -56,12 +56,9 @@ const PrepareDeckComponent = ({ user }) => {
   }, [availableChampions, selectedChampions]);
 
   return (
-    <div className=" mx-0 my-0 px-0 py-0 d-flex flex-row justify-content-center position-relative overflow-hidden">
-      <CardList
-        title={`Champions disponibles`}
-        isSplited={true}
-        dark={false}
-      >
+    <div className="mx-0 my-0 px-0 py-0 d-flex flex-row justify-content-center position-relative overflow-hidden">
+      <span className="btn btn-primary">Valider</span>
+      <CardList title={`Disponibles`} isSplited={true} dark={false}>
         {availableChampions.map((champion) => {
           return (
             <Card

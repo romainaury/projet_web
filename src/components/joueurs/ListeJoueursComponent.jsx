@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import {
   getAllUsersQuery,
@@ -8,31 +8,39 @@ import {
 } from "../../utils/queries";
 import "./liste-joueurs-style.css";
 
-const ListeJoueursComponent = ({ isLoggedIn, user }) => {
+const ListeJoueursComponent = ({ isLoggedIn, user, updateStatus }) => {
   const [users, setUsers] = useState([]);
   const [request, setRequest] = useState([]);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (user.id !== "") {
-        getAllUsersQuery(user)
-          .then((response) => response.json())
-          .then(setUsers)
+  const fetchInfo = useCallback(async () => {
+    if (user.id !== "") {
+      getAllUsersQuery(user)
+        .then((response) => response.json())
+        .then(setUsers)
+        .catch(console.log);
+      if (isLoggedIn()) {
+        AskParticipate(user.token)
+          .then((response) => {
+            if (response.status === 200) return response.json();
+          })
+          .then((response) => {
+            if (response.match) updateStatus(response.match);
+            setRequest(response.request);
+          })
           .catch(console.log);
-        if (isLoggedIn()) {
-          AskParticipate(user.token)
-            .then((response) => {
-              if (response.status === 200) return response.json();
-            })
-            .then((response) => setRequest(response.request))
-            .catch(console.log);
-        }
       }
+    }
+  }, [isLoggedIn, updateStatus, user]);
+
+  useEffect(() => {
+    fetchInfo();
+    const interval = setInterval(() => {
+      fetchInfo();
     }, 10000);
     return () => {
       clearInterval(interval);
     };
-  }, [isLoggedIn, user]);
+  }, [fetchInfo]);
 
   return (
     <div className={"container "}>
@@ -45,7 +53,9 @@ const ListeJoueursComponent = ({ isLoggedIn, user }) => {
 
         <h2>Demandes externes :</h2>
         {request.map((u) => {
-          return <RequestCard key={u.matchmakingId} {...u} />;
+          return (
+            <RequestCard key={u.matchmakingId} callback={updateStatus} {...u} />
+          );
         })}
       </>
     </div>
@@ -75,14 +85,14 @@ const CarteJoueur = ({ email, name, matchmakingId }) => {
   );
 };
 
-const RequestCard = ({ email, name, matchmakingId }) => {
+const RequestCard = ({ email, name, matchmakingId, callback }) => {
   const token = useSelector((state) => state.main.user.token);
 
   function accepte(matchmakingId, token) {
     console.log("accepte fight ", matchmakingId, token);
     acceptRequestMatch(matchmakingId, token)
-      .then((response) => {
-        if (response.status === 200) console.log("Ok ");
+      .then(async (response) => {
+        if (response.status === 200) callback(await response.json());
       })
       .catch((err) => {
         console.log(err);

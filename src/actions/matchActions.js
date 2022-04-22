@@ -13,7 +13,7 @@ export const setMatchInfoAction = (payload) => {
   return {
     type: "SET_MATCH_INFO",
     payload: {
-      status: payload.status,
+      ...payload,
     },
   };
 };

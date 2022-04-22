@@ -1,5 +1,3 @@
-import { current } from "@reduxjs/toolkit";
-
 const initialState = {
   status: "",
   current: undefined,
@@ -24,13 +22,12 @@ const matchReducer = (state = initialState, { type, payload }) => {
     case "SET_PLAYERS":
       return {
         ...state,
-        current: { id: current.id },
         player1: { ...payload.player1 },
         player2: { ...payload.player2 },
       };
 
     case "SET_MATCH_INFO":
-      return { ...state, current: { ...payload } };
+      return { ...state, ...payload };
 
     case "RESET":
       return { ...initialState };

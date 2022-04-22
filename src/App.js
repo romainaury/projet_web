@@ -16,15 +16,16 @@ function App() {
     <div className="App d-flex flex-column vh-100 overflow-hidden position-relative">
       <Provider store={store}>
         <Navbar />
-        <main id="App-main" className="position-relative d-flex overflow-hidden">
+        <main
+          id="App-main"
+          className="position-relative d-flex overflow-hidden"
+        >
           <Routes>
-            <Route element={<Home />} path="/" />
+            <Route path="/" element={<Home />} />
             <Route path="/connexion" element={<LogInContainer />} />
             <Route path="/inscription" element={<SignInContainer />} />
             <Route path="/deconnexion" element={<LogOutContainer />} />
             <Route path="/preparePioche" element={<PreparePiocheContainer />} />
-            <Route path="/prepareDeck" element={<PrepareDeckContainer />} />
-            {/* <Route path="/joueur" element={ <ListeJoueursContainer/>}/> */}
           </Routes>
         </main>
       </Provider>

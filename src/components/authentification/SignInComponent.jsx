@@ -28,7 +28,7 @@ const SignInComponent = ({ user }) => {
   };
 
   return (
-    <div className="row h-100 justify-content-center mx-0 signin-form">
+    <div className="row h-100 w-100 justify-content-center mx-0 signin-form">
       <Form
         onSubmit={onSubmit}
         validate={(values) => {
