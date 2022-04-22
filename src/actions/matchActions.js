@@ -1,13 +1,25 @@
-export const setPlayersAction = (payload) => {
+export const setStatusAction = (payload) => {
   return {
-    type: "SET_PLAYERS",
+    type: "SET_STATUS",
     payload: {
-      id: payload.id,
-      player1: payload.player1,
-      player2: payload.player2,
-    },
-  };
-};
+      status: payload.status
+    }
+  }
+}
+
+export const setPlayer1Action = (payload) => {
+  return {
+    type: "SET_PLAYER1",
+    payload
+  }
+}
+
+export const setPlayer2Action = (payload) => {
+  return {
+    type: "SET_PLAYER2",
+    payload
+  }
+}
 
 export const setMatchInfoAction = (payload) => {
   return {
@@ -17,7 +29,6 @@ export const setMatchInfoAction = (payload) => {
     },
   };
 };
-
 export const resetMatchAction = () => {
   return {
     type: "RESET",

@@ -13,7 +13,7 @@ export default function PreparePiocheComponents({ isLoggedIn, user }) {
       })
       .catch((err) => {
         console.log(err);
-        alert("erreur pioche ");
+        // alert("erreur pioche ");
       });
   }
 
@@ -26,7 +26,7 @@ export default function PreparePiocheComponents({ isLoggedIn, user }) {
       })
       .catch((err) => {
         console.log(err);
-        alert("erreur playacrt ");
+        // alert("erreur playacrt ");
       });
   }
 

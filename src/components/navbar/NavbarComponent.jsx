@@ -15,6 +15,9 @@ const NavbarComponent = ({ isLoggedIn }) => {
             <Link to="/deconnexion" className="btn btn-secondary ms-2">
               Déconnexion{" "}
             </Link>
+            <Link to="/getmatchdata" className="btn btn-secondary ms-2">
+              Get Match data{" "}
+            </Link>
           </>
         ) : (
           <>

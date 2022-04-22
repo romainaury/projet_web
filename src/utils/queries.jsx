@@ -87,7 +87,7 @@ export const acceptRequestMatch = async (matchmakingId, token) => {
 
   return fetch(
     "http://localhost:3001/matchmaking/acceptRequest?matchmakingId=" +
-      matchmakingId,
+    matchmakingId,
     requestOptions
   );
 };
@@ -100,7 +100,7 @@ export const getAllCards = async () => {
 
 /*------------------------------------------------Match ------------------------------------------------------------*/
 
-export const getMatchInfo = async (token) => {
+export const getMatchInfo = async ({ token }) => {
   const requestOptions = {
     method: "GET",
     headers: { "Content-Type": "application/json", "WWW-Authenticate": token },
@@ -144,9 +144,9 @@ export const faireAttaquerUnChampion = async (token, card, ennemyCard) => {
 
   return fetch(
     "http://localhost:3001/match/attack?card=" +
-      card +
-      "&ennemyCard=" +
-      ennemyCard,
+    card +
+    "&ennemyCard=" +
+    ennemyCard,
     requestOptions
   );
 };
