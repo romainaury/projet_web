@@ -63,12 +63,10 @@ export const askMatch = async (matchmakingId, token) => {
     headers: { "Content-Type": "application/json", "WWW-Authenticate": token },
   };
 
-  const req =  fetch(
+  return fetch(
     "http://localhost:3001/matchmaking/request?matchmakingId=" + matchmakingId,
     requestOptions
   );
-
-  return req;
 };
 
 /*Accepter une requête
@@ -81,19 +79,15 @@ Ce Web Service nécessite 1 paramètre :
 — "matchmakingId" : l’identifiant du matchmaking du joueur ayant envoyé la requête
 Cet identifiant doit nécessairement être associé à un joueur qui vous a envoyé une requête.
 Dans ce cas un match est créé, et les informations concernant ce match sont retournées :*/
-export const acceptRequestMatch = async ( matchmakingId, token ) => {
-  const params = {
-    matchmakingId: matchmakingId,
-  };
-
+export const acceptRequestMatch = async (matchmakingId, token) => {
   const requestOptions = {
     method: "GET",
     headers: { "Content-Type": "application/json", "WWW-Authenticate": token },
-    // body: JSON.stringify(params),
   };
 
   return fetch(
-    "http://localhost:3001/matchmaking/acceptRequest?matchmakingId=" + matchmakingId,
+    "http://localhost:3001/matchmaking/acceptRequest?matchmakingId=" +
+      matchmakingId,
     requestOptions
   );
 };
@@ -106,64 +100,86 @@ export const getAllCards = async () => {
 
 /*------------------------------------------------Match ------------------------------------------------------------*/
 
-export const finDuMatch = async () => {
+export const getMatchInfo = async (token) => {
   const requestOptions = {
     method: "GET",
-    headers: { "Content-Type": "application/json" },
+    headers: { "Content-Type": "application/json", "WWW-Authenticate": token },
   };
 
-  return fetch("http://localhost:3001/match/finisMatch", requestOptions);
+  return fetch("http://localhost:3001/match/getMatch", requestOptions);
 };
 
-export const finDuTour = async () => {
+export const finDuMatch = async (token) => {
   const requestOptions = {
     method: "GET",
-    headers: { "Content-Type": "application/json" },
+    headers: { "Content-Type": "application/json", "WWW-Authenticate": token },
+  };
+
+  return fetch("http://localhost:3001/match/finishMatch", requestOptions);
+};
+
+export const finDuTour = async (token) => {
+  const requestOptions = {
+    method: "GET",
+    headers: { "Content-Type": "application/json", "WWW-Authenticate": token },
   };
 
   return fetch("http://localhost:3001/match/endTurn", requestOptions);
 };
 
-export const attaquerDirectementLesPointsDeVieDelAdversaire = async ({
-  card,
-}) => {
+export const attaquerDirectementLesPointsDeVieDelAdversaire = async (token) => {
   const requestOptions = {
     method: "GET",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ card }),
+    headers: { "Content-Type": "application/json", "WWW-Authenticate": token },
   };
 
   return fetch("http://localhost:3001/match/attackPlayer", requestOptions);
 };
 
-export const faireAttaquerCnChampion = async ({ card, ennemyCard }) => {
-  const requestOptions = {
-    method: "GET",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ card, ennemyCard }),
-  };
-
-  return fetch("http://localhost:3001/match/attack", requestOptions);
-};
-
-export const jouerUneCarteChampion = async ( token , key  ) => {
+export const faireAttaquerUnChampion = async (token, card, ennemyCard) => {
   const requestOptions = {
     method: "GET",
     headers: { "Content-Type": "application/json", "WWW-Authenticate": token },
-    // body: JSON.stringify({ card, playCard }),
   };
 
-  return fetch("http://localhost:3001/match/playCard?card="+ key, requestOptions);
+  return fetch(
+    "http://localhost:3001/match/attack?card=" +
+      card +
+      "&ennemyCard=" +
+      ennemyCard,
+    requestOptions
+  );
 };
 
-
-export const piocherUneCarte  = async (token ) => {
-  console.log("piocherUneCarte",token )
+export const jouerUneCarteChampion = async (token, key) => {
   const requestOptions = {
     method: "GET",
-    headers: { "Content-Type": "application/json" , "WWW-Authenticate": token},
-    // body: JSON.stringify({ card, playCard }),
+    headers: { "Content-Type": "application/json", "WWW-Authenticate": token },
   };
 
-  return fetch("http://localhost:3001/match/pickCard" , requestOptions);
+  return fetch(
+    "http://localhost:3001/match/playCard?card=" + key,
+    requestOptions
+  );
+};
+
+export const piocherUneCarte = async (token) => {
+  const requestOptions = {
+    method: "GET",
+    headers: { "Content-Type": "application/json", "WWW-Authenticate": token },
+  };
+
+  return fetch("http://localhost:3001/match/pickCard", requestOptions);
+};
+
+export const initialiserDeck = async (token, cartes = []) => {
+  const requestOptions = {
+    method: "GET",
+    headers: { "Content-Type": "application/json", "WWW-Authenticate": token },
+  };
+  const URL = encodeURI(
+    "http://localhost:3001/match/pickCard?deck=" + cartes.toString()
+  );
+  console.log(URL);
+  // return fetch(URL, requestOptions);
 };

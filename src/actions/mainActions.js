@@ -1,17 +1,26 @@
 export const setUserAction = (payload) => {
-    return {
-        type: "SET_USER",
-        payload: {
-            id: payload.id,
-            email: payload.email,
-            name: payload.name,
-            token: payload.token,
-        }
-    }
-}
+  return {
+    type: "SET_USER",
+    payload: {
+      id: payload.id,
+      email: payload.email,
+      name: payload.name,
+      token: payload.token,
+    },
+  };
+};
 
 export const logOutAction = () => {
-    return {
-        type: "LOG_OUT"
-    }
-}
+  return {
+    type: "LOG_OUT",
+  };
+};
+
+export const setDeckAction = (payload) => {
+  return {
+    type: "SET_DECK",
+    payload: {
+      deck: payload,
+    },
+  };
+};

@@ -1,19 +1,12 @@
 import { Field, Form } from "react-final-form";
-import axios from "axios";
-import React, { useContext, useRef, useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router";
-import "./authentification-style.css"
+import "./authentification-style.css";
+
 const LogInComponent = ({ setUser }) => {
-  //   const onSubmit = (values) => {
-  //     console.log(values.pseudo);
-  //     alert(values);
-  //   };
-  const [connecter, setConnecter] = useState(false);
-  const [validation, setValidation] = useState("");
   const navigate = useNavigate();
 
-  const Log2 = async ({ pseudo, password }) => {
-    console.log("reçu avant envoie", pseudo, password);
+  const onSubmit = async ({ pseudo, password }) => {
     const params = {
       email: pseudo + "@l3.fr",
       password: password,
@@ -27,36 +20,20 @@ const LogInComponent = ({ setUser }) => {
 
     fetch("http://localhost:3001/login", requestOptions)
       .then((response) => response.json())
-      .then((response) => {
-        console.log(response);
-        setUser(response);
+      .then((data) => {
+        setUser(data);
         navigate("/");
       })
-      .catch(() => {
-        alert("Utilisateur pas réussis co ");
+      .catch((err) => {
+        console.log(err);
+        alert("Erreur de connexion");
       });
   };
 
-  const onSubmit = (values) => {
-    console.log("prout", values);
-    let res;
-    res = Log2(values);
-    console.log("res", res);
-    if (res == 500) {
-      setValidation("erreur");
-    } else {
-      setConnecter(true);
-    }
-  };
-
-  function verif(values) {
-    onSubmit(values);
-  }
-
   return (
-    <div className={"row h-100 justify-content-center mx-0 login-form"}>
+    <div className={"row h-100 w-100 justify-content-center mx-0 login-form"}>
       <Form
-        onSubmit={verif}
+        onSubmit={onSubmit}
         render={({ handleSubmit }) => (
           <form className="col-md-4 my-4 auth-form" onSubmit={handleSubmit}>
             <h1 className="text-center">Connexion</h1>

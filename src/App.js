@@ -10,15 +10,19 @@ import PreparePiocheContainer from "./components/preparePioche/preparePiocheCont
 import GetMatchDataContainer from "./components/matchs/getMatchDataContainer";
 import { store } from "./app/store";
 import { Provider } from "react-redux";
+import PrepareDeckContainer from "./components/deck/PrepareDeckContainer";
 
 function App() {
   return (
-    <div className="App">
+    <div className="App d-flex flex-column vh-100 overflow-hidden position-relative">
       <Provider store={store}>
         <Navbar />
-        <main id="App-main">
+        <main
+          id="App-main"
+          className="position-relative d-flex overflow-hidden"
+        >
           <Routes>
-            <Route element={<Home />} path="/" />
+            <Route path="/" element={<Home />} />
             <Route path="/connexion" element={<LogInContainer />} />
             <Route path="/inscription" element={<SignInContainer />} />
             <Route path="/deconnexion" element={<LogOutContainer />} />
