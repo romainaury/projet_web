@@ -1,9 +1,6 @@
 import { useEffect, useState } from "react";
+import { jouerUneCarteChampion } from "../../utils/queries";
 import CardComponent from "../card/CardComponent";
-
-const CardListBoard = (props, children) => {
-  return <div className="vw-100">{children}</div>;
-};
 
 export const MatchComponent = ({ status, players, user }) => {
   const [isPending, setIsPending] = useState(
@@ -15,16 +12,18 @@ export const MatchComponent = ({ status, players, user }) => {
   }, [status]);
 
   return isPending ? (
-    "En attente de l'adversaire"
+    <p>En attente de l'adversaire</p>
   ) : (
-    <div className="d-flex flex-column flex-grow-1 h-100">
-      caca
-      <div className="d-flex flex-row container">
-        <div className="hand">
-          main
-          {Array(players.player2.hand).map(() => "CARTE")}
+    <div className="d-flex flex-column flex-grow-1 vh-100">
+      <div className="h-50">
+        <div className="hand d-flex flex-row justify-content-center">
+          {[...Array(players.player2.hand)].map((_, i) => (
+            <span key={i}>Card</span>
+          ))}
         </div>
-        <div className="board">
+        <hr className="w-100" />
+
+        <div className="board d-flex flex-row justify-content-center">
           {players.player2.board.map((champion) => (
             <CardComponent
               key={players.player2.id + champion.key}
@@ -33,24 +32,29 @@ export const MatchComponent = ({ status, players, user }) => {
           ))}
         </div>
       </div>
-      <div className="row d-flex flex-row ">
-        {players.player1.board.map((champion) => (
-          <CardComponent
-            key={champion.id}
-            isSplited={false}
-            champion={champion}
-            onClick={() => {
-              /* */
-            }}
-          />
-        ))}
-        <div className="hand row">
-          main
+      <div className="h-50">
+        <div className="board d-flex flex-row justify-content-center">
+          {players.player1.board.map((champion) => (
+            <CardComponent
+              key={champion.id}
+              isSplited={false}
+              champion={champion}
+              onClick={() => {
+                /* */
+              }}
+            />
+          ))}
+        </div>
+        <hr className="w-100" />
+        <div className="hand d-flex flex-row justify-content-center">
           {players.player1.hand.map((champion) => (
             <CardComponent
               key={players.player1.id + champion.key}
               isSplited={false}
               champion={champion}
+              onClick={() => {
+                jouerUneCarteChampion(user.token, champion.key);
+              }}
             />
           ))}
         </div>

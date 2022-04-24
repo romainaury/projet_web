@@ -43,21 +43,28 @@ const ListeJoueursComponent = ({ isLoggedIn, user, updateStatus }) => {
   }, [fetchInfo]);
 
   return (
-    <div className={"container "}>
-      <h1>Liste Joueurs en attente</h1>
-      <>
-        <span>{user.name}</span>
-        {users.map((u) => {
-          return <CarteJoueur key={u.matchmakingId} {...u} />;
-        })}
-
-        <h2>Demandes externes :</h2>
-        {request.map((u) => {
-          return (
-            <RequestCard key={u.matchmakingId} callback={updateStatus} {...u} />
-          );
-        })}
-      </>
+    <div className={"container my-4"}>
+      <span className="display-3 my-3">Bienvenue {user.name}</span>
+      <div className="row">
+        <div className="col-sm-6 col-12">
+          <h1 className="text-center">Liste Joueurs en attente</h1>
+          {users.map((u) => {
+            return <CarteJoueur key={u.matchmakingId} {...u} />;
+          })}
+        </div>
+        <div className="col-sm-6 col-12">
+          <h1 className="text-center">Demandes externes</h1>
+          {request.map((u) => {
+            return (
+              <RequestCard
+                key={u.matchmakingId}
+                callback={updateStatus}
+                {...u}
+              />
+            );
+          })}
+        </div>
+      </div>
     </div>
   );
 };
@@ -72,7 +79,7 @@ const CarteJoueur = ({ email, name, matchmakingId }) => {
   };
 
   return (
-    <div onClick={handleClick} className="col-12 px-1 py-1 bg-light rounded-3">
+    <div onClick={handleClick} className="col-12  px-2 py-2 bg-light rounded-3 d-flex flex-row justify-content-between bg-light rounded-3">
       <p className="mb-1">
         {name} ({email})
       </p>
@@ -80,7 +87,7 @@ const CarteJoueur = ({ email, name, matchmakingId }) => {
   );
 };
 
-const RequestCard = ({ email, name, matchmakingId, callback }) => {
+const RequestCard = ({ name, matchmakingId, callback }) => {
   const token = useSelector((state) => state.main.user.token);
 
   function accepte(matchmakingId, token) {
@@ -95,11 +102,11 @@ const RequestCard = ({ email, name, matchmakingId, callback }) => {
       });
   }
   return (
-    <div className="col-12 px-1 py-1 bg-light rounded-3">
+    <div className="col-12 px-2 py-2 bg-light rounded-3 d-flex flex-row justify-content-between bg-light rounded-3">
       <p className="mb-1">
-        {name} ({email})
+        {name} 
       </p>
-      <button onClick={(e) => accepte(matchmakingId, token)}>Ok</button>
+      <button className="btn btn-primary" onClick={(e) => accepte(matchmakingId, token)}>Accepter</button>
       {/* <button onClick={(e)=>refuse (matchmakingId, token )}>Non</button> */}
     </div>
   );

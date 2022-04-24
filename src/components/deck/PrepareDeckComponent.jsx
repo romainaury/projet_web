@@ -61,7 +61,7 @@ const PrepareDeckComponent = ({ user, match, updateStatus }) => {
 
   return (
     <div className="mx-0 my-0 px-0 py-0 d-flex flex-row justify-content-center position-relative overflow-hidden">
-      <span className="btn btn-primary" onClick={envoyerDeck}>
+      <span className="btn btn-primary btn-valider" onClick={envoyerDeck}>
         Valider
       </span>
       <CardList title={`Disponibles`} isSplited={true} dark={false}>
