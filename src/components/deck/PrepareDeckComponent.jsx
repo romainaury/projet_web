@@ -4,9 +4,13 @@ import CardList from "../card/CardListComponent";
 import { getAllCards, initialiserDeck } from "../../utils/queries";
 import "./prepare-deck-style.scss";
 
-const PrepareDeckComponent = ({ user, match }) => {
+const PrepareDeckComponent = ({ user, match, updateStatus }) => {
   const [availableChampions, setAvailableChampions] = useState([]);
   const [selectedChampions, setSelectedChampions] = useState([]);
+
+  useEffect(() => {
+    if (String(match.status).includes("Turn")) updateStatus();
+  }, [match]);
 
   const compare = (a, b) => {
     if (a.name < b.name) {
@@ -39,7 +43,7 @@ const PrepareDeckComponent = ({ user, match }) => {
       initialiserDeck(
         user.token,
         selectedChampions.map((champion) => ({ key: champion.key }))
-      );
+      ).then(updateStatus);
     else alert("Selectionner 20 champions");
   };
 
@@ -57,7 +61,9 @@ const PrepareDeckComponent = ({ user, match }) => {
 
   return (
     <div className="mx-0 my-0 px-0 py-0 d-flex flex-row justify-content-center position-relative overflow-hidden">
-      <span className="btn btn-primary">Valider</span>
+      <span className="btn btn-primary" onClick={envoyerDeck}>
+        Valider
+      </span>
       <CardList title={`Disponibles`} isSplited={true} dark={false}>
         {availableChampions.map((champion) => {
           return (

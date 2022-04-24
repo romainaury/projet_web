@@ -6,11 +6,8 @@ import Home from "./components/home/HomeContainer";
 import LogInContainer from "./components/authentification/LogInContainer";
 import SignInContainer from "./components/authentification/SignInContainer";
 import LogOutContainer from "./components/authentification/LogOutContainer";
-import PreparePiocheContainer from "./components/preparePioche/preparePiocheContainer";
-import GetMatchDataContainer from "./components/matchs/getMatchDataContainer";
 import { store } from "./app/store";
 import { Provider } from "react-redux";
-import PrepareDeckContainer from "./components/deck/PrepareDeckContainer";
 
 function App() {
   return (
@@ -26,9 +23,6 @@ function App() {
             <Route path="/connexion" element={<LogInContainer />} />
             <Route path="/inscription" element={<SignInContainer />} />
             <Route path="/deconnexion" element={<LogOutContainer />} />
-            <Route path="/preparePioche" element={<PreparePiocheContainer />} />
-            <Route path="/getMatchData" element={<GetMatchDataContainer />} />
-            {/* <Route path="/joueur" element={ <ListeJoueursContainer/>}/> */}
           </Routes>
         </main>
       </Provider>

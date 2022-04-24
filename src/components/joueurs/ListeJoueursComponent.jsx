@@ -36,7 +36,7 @@ const ListeJoueursComponent = ({ isLoggedIn, user, updateStatus }) => {
     fetchInfo();
     const interval = setInterval(() => {
       fetchInfo();
-    }, 10000);
+    }, 5000);
     return () => {
       clearInterval(interval);
     };
@@ -66,14 +66,9 @@ const CarteJoueur = ({ email, name, matchmakingId }) => {
   const token = useSelector((state) => state.main.user.token);
 
   const handleClick = () => {
-    askMatch(matchmakingId, token)
-      .then((response) => {
-        if (response.status === 200)
-          console.log("Match demandé à " + matchmakingId);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    askMatch(matchmakingId, token).catch((err) => {
+      console.log(err);
+    });
   };
 
   return (

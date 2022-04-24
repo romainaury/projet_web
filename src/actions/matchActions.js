@@ -7,20 +7,6 @@ export const setStatusAction = (payload) => {
   }
 }
 
-export const setPlayer1Action = (payload) => {
-  return {
-    type: "SET_PLAYER1",
-    payload
-  }
-}
-
-export const setPlayer2Action = (payload) => {
-  return {
-    type: "SET_PLAYER2",
-    payload
-  }
-}
-
 export const setMatchInfoAction = (payload) => {
   return {
     type: "SET_MATCH_INFO",

@@ -20,6 +20,17 @@ export const logOutQuery = async ({ token }) => {
   return fetch("http://localhost:3001/logout", requestOptions);
 };
 
+export const amIConnected = async ({ token }) => {
+  const requestOptions = {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      "WWW-Authenticate": token,
+    },
+  };
+  return fetch("http://localhost:3001/users/amIConnected", requestOptions);
+};
+
 export const getAllUsersQuery = async ({ token }) => {
   const requestOptions = {
     method: "GET",
@@ -33,8 +44,6 @@ export const getAllUsersQuery = async ({ token }) => {
 };
 
 export const AskParticipate = async (token) => {
-  // console.log("on y arrive")
-
   const headers = new Headers();
 
   headers.append("WWW-Authenticate", token);
@@ -44,7 +53,6 @@ export const AskParticipate = async (token) => {
     method: "GET",
     headers,
   };
-  // console.log("headers  is 2 : ", requestOptions);
   return fetch("http://localhost:3001/matchmaking/participate", requestOptions);
 };
 
@@ -87,7 +95,7 @@ export const acceptRequestMatch = async (matchmakingId, token) => {
 
   return fetch(
     "http://localhost:3001/matchmaking/acceptRequest?matchmakingId=" +
-    matchmakingId,
+      matchmakingId,
     requestOptions
   );
 };
@@ -144,9 +152,9 @@ export const faireAttaquerUnChampion = async (token, card, ennemyCard) => {
 
   return fetch(
     "http://localhost:3001/match/attack?card=" +
-    card +
-    "&ennemyCard=" +
-    ennemyCard,
+      card +
+      "&ennemyCard=" +
+      ennemyCard,
     requestOptions
   );
 };
@@ -178,8 +186,7 @@ export const initialiserDeck = async (token, cartes = []) => {
     headers: { "Content-Type": "application/json", "WWW-Authenticate": token },
   };
   const URL = encodeURI(
-    "http://localhost:3001/match/pickCard?deck=" + cartes.toString()
+    "http://localhost:3001/match/initDeck?deck=" + JSON.stringify(cartes)
   );
-  console.log(URL);
-  // return fetch(URL, requestOptions);
+  return fetch(URL, requestOptions);
 };
